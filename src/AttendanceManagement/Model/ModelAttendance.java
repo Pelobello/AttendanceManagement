@@ -4,12 +4,30 @@
  */
 package AttendanceManagement.Model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import javax.swing.Icon;
 
 
 public class ModelAttendance {
+
+    /**
+     * @return the dateCreated
+     */
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    /**
+     * @param dateCreated the dateCreated to set
+     */
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
 
     /**
      * @return the employeesImage
@@ -137,4 +155,17 @@ public class ModelAttendance {
     private LocalTime amTimeOut;
     private LocalTime pmTimeIn;
     private LocalTime pmTimeOut;
+    private Date dateCreated;
+    
+    public Object[]toTableRow(int rowNum){
+        DateFormat df = new SimpleDateFormat("MMMM dd,yyyy");
+ 
+        return new Object[]{employeesID,employeesFullName,department,amTimeIn,amTimeOut,pmTimeIn,pmTimeOut,df.format(dateCreated)};
+    }
+
+    @Override
+    public String toString() {
+        return employeesFullName; 
+    }
+    
 }

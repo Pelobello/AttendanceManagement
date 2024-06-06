@@ -175,6 +175,44 @@ public class EmployeesController {
             e.printStackTrace();
         }
     }
+    private boolean isNumeric(String str) {
+    if (str == null) {
+        return false;
+    }
+    try {
+        Integer.parseInt(str);
+    } catch (NumberFormatException e) {
+        return false;
+    }
+    return true;
+}
+       public void searchEmployeesProfile(String Search) {
+           
+        String sql = "SELECT * FROM employees_data WHERE DateDeleted IS NULL  AND (IDnumber LIKE ? or FirstName LIKE ? or LastName LIKE ?)";
+        try {
+            
+      ps = prepareStatement(sql);
+       String searchPattern = "%" + Search + "%";
+        ps.setString(1, searchPattern);
+        ps.setString(2, searchPattern);
+        ps.setString(3, searchPattern);
+                rs =  ps.executeQuery();
+            while (rs.next()) {
+                String base64Image = rs.getString("EmployeesImage");
+                byte[] imageData = Base64.getDecoder().decode(base64Image);
+
+                BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageData));
+                BufferedImage imageWithWhiteBackground = createBufferedImageWithWhiteBackground(bufferedImage);
+
+                ImageIcon whiteBackgroundIcon = new ImageIcon(imageWithWhiteBackground);         
+                ModelEmployees employeesProfile = new ModelEmployees( rs.getInt("IDnumber"),  rs.getString("FirstName"),  rs.getString("MiddleName"), rs.getString("LastName"),rs.getString("Position"),rs.getString("Department"),rs.getDate("DateAssumed"),rs.getInt("PlantillaNumber"),whiteBackgroundIcon);
+                employeesProfile.setIdData(rs.getInt("ID"));
+                employeesProfileForms.addEmployees(employeesProfile);
+            }
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private Connection getConnection() {
         DatabaseConnection databaseConnection = new DatabaseConnection();

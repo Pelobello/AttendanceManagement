@@ -9,8 +9,13 @@ import AttendanceManagement.Controller.EmployeesController;
 import AttendanceManagement.Main.Main;
 import AttendanceManagement.Model.ModelDtr;
 import AttendanceManagement.Model.ModelEmployees;
+import AttendanceManagement.ModelRecords.FieldReportAttendance;
+import AttendanceManagement.print.ReportManager;
 import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -30,6 +35,7 @@ public class DtrForms extends javax.swing.JPanel {
         setOpaque(false);
         year_monthDATA();
         init();
+        testReport();
     }
 private void init(){
                   centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -54,7 +60,8 @@ private void init(){
                 + "cellFocusColor:$TableHeader.hoverBackground;"
                 + "selectionBackground:$TableHeader.hoverBackground;"
                 + "selectionForeground:$Table.foreground;");
-           
+            SearchField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "");
+           SearchField.putClientProperty(FlatClientProperties.TEXT_FIELD_TRAILING_ICON, new FlatSVGIcon("AttendanceManagement/Images_Icons/search.svg"));
          
 }
 private void year_monthDATA(){
@@ -113,7 +120,13 @@ private void srcDtr(){
     
 }
 
-
+private void testReport(){
+    try {
+        ReportManager.getInstance().compileReport();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -131,23 +144,25 @@ private void srcDtr(){
         DepartMent = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(1145, 659));
+
         panelTable.setBackground(new java.awt.Color(255, 255, 255));
 
         dtrTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         dtrTable.setForeground(new java.awt.Color(51, 51, 51));
         dtrTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Day", "Arrival", "Departure", "Arrival", "Departure", "TotalAMWorkingHourse", "TotalAMWorkingHourse", "UnderTime", "OverTime"
+                "Day", "Arrival", "Departure", "Arrival", "Departure", "Total Working Hours", "UnderTime", "OverTime"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -165,7 +180,6 @@ private void srcDtr(){
             dtrTable.getColumnModel().getColumn(5).setResizable(false);
             dtrTable.getColumnModel().getColumn(6).setResizable(false);
             dtrTable.getColumnModel().getColumn(7).setResizable(false);
-            dtrTable.getColumnModel().getColumn(8).setResizable(false);
         }
 
         SearchField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -226,8 +240,7 @@ private void srcDtr(){
                 .addGap(0, 31, Short.MAX_VALUE))
         );
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/icons8_search_35px.png"))); // NOI18N
-        jButton1.setToolTipText("Search Employees ID");
+        jButton1.setText("Print");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -239,19 +252,22 @@ private void srcDtr(){
         panelTableLayout.setHorizontalGroup(
             panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTableLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Year, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPane1)
-                        .addGroup(panelTableLayout.createSequentialGroup()
-                            .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(SearchField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Month, javax.swing.GroupLayout.Alignment.LEADING, 0, 203, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 436, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelTableLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(panelTableLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Year, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jScrollPane1)
+                                .addGroup(panelTableLayout.createSequentialGroup()
+                                    .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(SearchField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(Month, javax.swing.GroupLayout.Alignment.LEADING, 0, 203, Short.MAX_VALUE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 368, Short.MAX_VALUE)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addGap(16, 16, 16))
         );
         panelTableLayout.setVerticalGroup(
@@ -260,9 +276,7 @@ private void srcDtr(){
                 .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTableLayout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(SearchField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Month, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -272,7 +286,9 @@ private void srcDtr(){
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1)
-                .addGap(31, 31, 31))
+                .addGap(2, 2, 2)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -287,14 +303,19 @@ private void srcDtr(){
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      srchFieldScn();
-     
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed
       srchFieldScn();
     }//GEN-LAST:event_SearchFieldActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            List<FieldReportAttendance>list = new ArrayList<>();
+            for (int i = 0; i < dtrTable.getRowCount(); i++) {
+                
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

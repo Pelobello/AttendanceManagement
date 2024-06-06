@@ -5,7 +5,9 @@ import AttendanceManagement.Controller.AttendanceController;
 import AttendanceManagement.Controller.EmployeesController;
 import AttendanceManagement.Model.ModelAttendance;
 import AttendanceManagement.Model.ModelEmployees;
+import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -22,6 +24,8 @@ public class Attendance extends javax.swing.JFrame {
     public Attendance() {
         initComponents();
 //         setExtendedState(Attendance.MAXIMIZED_BOTH);
+  SearchField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search...");
+ SearchField.putClientProperty(FlatClientProperties.TEXT_FIELD_TRAILING_ICON, new FlatSVGIcon("AttendanceManagement/Images_Icons/search.svg"));
     }
 private void SearchEmployees(){
      int searchID = Integer.parseInt(SearchField.getText());
@@ -60,13 +64,10 @@ private void srchFieldScn(){
         EmployeesImage = new AttendanceManagement.Components.ImageBox();
         employeesID = new javax.swing.JLabel();
         FullName = new javax.swing.JLabel();
-        SearchField = new AttendanceManagement.Components.TextField();
-        jButton1 = new javax.swing.JButton();
         AmTimeIn = new javax.swing.JButton();
         AmTimeOut = new javax.swing.JButton();
-        PmTimeIn = new javax.swing.JButton();
-        PmTimeOut = new javax.swing.JButton();
         DepartMent = new javax.swing.JLabel();
+        SearchField = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         textField1 = new AttendanceManagement.Components.TextField();
         jButton2 = new javax.swing.JButton();
@@ -82,38 +83,18 @@ private void srchFieldScn(){
 
         EmployeesImage.setImage(new javax.swing.ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/profile-png.jpg"))); // NOI18N
 
-        employeesID.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        employeesID.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         employeesID.setForeground(new java.awt.Color(102, 102, 102));
         employeesID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         employeesID.setText("0");
         employeesID.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        FullName.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        FullName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         FullName.setForeground(new java.awt.Color(102, 102, 102));
         FullName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         FullName.setText("Na");
 
-        SearchField.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        SearchField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        SearchField.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        SearchField.setLabelText("Employees ID#");
-        SearchField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SearchFieldActionPerformed(evt);
-            }
-        });
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/icons8_search_35px.png"))); // NOI18N
-        jButton1.setToolTipText("Search");
-        jButton1.setBorder(null);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        AmTimeIn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        AmTimeIn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         AmTimeIn.setText("Time In");
         AmTimeIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,7 +102,7 @@ private void srchFieldScn(){
             }
         });
 
-        AmTimeOut.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        AmTimeOut.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         AmTimeOut.setText("Time Out");
         AmTimeOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,40 +110,24 @@ private void srchFieldScn(){
             }
         });
 
-        PmTimeIn.setText("PmTime in");
-        PmTimeIn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PmTimeInActionPerformed(evt);
-            }
-        });
-
-        PmTimeOut.setText("PmTime out");
-        PmTimeOut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PmTimeOutActionPerformed(evt);
-            }
-        });
-
         DepartMent.setDisplayedMnemonic('\u013a');
         DepartMent.setText("DepartMent");
+
+        SearchField.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        SearchField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        SearchField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(271, 271, 271)
-                .addComponent(SearchField, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(185, 185, 185))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(325, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(PmTimeIn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(PmTimeOut, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(AmTimeIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(26, 26, 26)
@@ -173,21 +138,23 @@ private void srchFieldScn(){
                 .addGap(96, 96, 96)
                 .addComponent(DepartMent, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(73, 73, 73))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(288, 288, 288)
+                .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SearchField, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(EmployeesImage, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                         .addGap(1, 1, 1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
+                        .addGap(300, 300, 300)
                         .addComponent(DepartMent, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(FullName, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -197,11 +164,7 @@ private void srchFieldScn(){
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AmTimeIn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(AmTimeOut, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PmTimeIn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PmTimeOut, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(99, 99, 99))
+                .addGap(158, 158, 158))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -277,16 +240,6 @@ private void srchFieldScn(){
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      srchFieldScn();
- 
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed
- 
-       srchFieldScn();
-    }//GEN-LAST:event_SearchFieldActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
      SwingUtilities.invokeLater(() -> {
         Main main = new Main();
@@ -296,11 +249,13 @@ private void srchFieldScn(){
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void AmTimeInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AmTimeInActionPerformed
-         try {
+       try {
         if (employeesID.getText().equals("0")) {
             JOptionPane.showMessageDialog(null, "Invalid ID");
         } else {
             LocalTime currentTime = LocalTime.now();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+            String formattedTime = currentTime.format(dtf);
             int currentHour = currentTime.getHour();
             int empID = Integer.parseInt(employeesID.getText());
             Icon employeesImageProfile = EmployeesImage.getImage();
@@ -312,12 +267,21 @@ private void srchFieldScn(){
             attendanceRecord.setDepartment(department);
             attendanceRecord.setEmployeesID(empID);
             attendanceRecord.setEmployeesFullName(fullName);
-            if (currentHour < 13) {          
-                attendanceRecord.setAmTimeIn(currentTime);
-                attendanceController.amtimeIn(attendanceRecord);
-            } else {  
-                attendanceRecord.setPmTimeIn(currentTime);
-                attendanceController.pmtimeIn(attendanceRecord);
+            LocalTime formattedLocalTime = LocalTime.parse(formattedTime, dtf);
+
+            String timeLabel = (currentHour < 13) ? "AM Arrival" : "PM Arrival";
+            int confirmation = JOptionPane.showConfirmDialog(null, "Do you agree to record the " + timeLabel + " at " + formattedTime + "?", "Confirm Time In", JOptionPane.YES_NO_OPTION);
+
+            if (confirmation == JOptionPane.YES_OPTION) {
+                if (currentHour < 13) {          
+                    attendanceRecord.setAmTimeIn(formattedLocalTime);
+                    attendanceController.amtimeIn(attendanceRecord);
+                } else {  
+                    attendanceRecord.setPmTimeIn(formattedLocalTime);
+                    attendanceController.pmtimeIn(attendanceRecord);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Time In was not recorded.");
             }
         }
     } catch (Exception e) {
@@ -331,6 +295,8 @@ private void srchFieldScn(){
             JOptionPane.showMessageDialog(null, "Invalid ID");
         } else {
             LocalTime currentTime = LocalTime.now();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+            String formattedTime = currentTime.format(dtf);
             int currentHour = currentTime.getHour();
             int empID = Integer.parseInt(employeesID.getText());
             Icon employeesImageProfile = EmployeesImage.getImage();
@@ -342,12 +308,21 @@ private void srchFieldScn(){
             attendanceRecord.setDepartment(department);
             attendanceRecord.setEmployeesID(empID);
             attendanceRecord.setEmployeesFullName(fullName);
-            if (currentHour < 13) {          
-                attendanceRecord.setAmTimeIn(currentTime);
-                attendanceController.amtimeOut(attendanceRecord);
-            } else {  
-                attendanceRecord.setPmTimeIn(currentTime);
-                attendanceController.pmtimeOut(attendanceRecord);
+            LocalTime formattedLocalTime = LocalTime.parse(formattedTime, dtf);
+
+            String timeLabel = (currentHour < 13) ? "AM Departure" : "PM Departure";
+            int confirmation = JOptionPane.showConfirmDialog(null, "Do you agree to record the " + timeLabel + " at " + formattedTime + "?", "Confirm Time In", JOptionPane.YES_NO_OPTION);
+
+            if (confirmation == JOptionPane.YES_OPTION) {
+                if (currentHour < 13) {          
+                    attendanceRecord.setAmTimeOut(formattedLocalTime);
+                    attendanceController.amtimeOut(attendanceRecord);
+                } else {  
+                    attendanceRecord.setPmTimeOut(formattedLocalTime);
+                    attendanceController.pmtimeOut(attendanceRecord);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Time In was not recorded.");
             }
         }
     } catch (Exception e) {
@@ -355,39 +330,9 @@ private void srchFieldScn(){
     }
     }//GEN-LAST:event_AmTimeOutActionPerformed
 
-    private void PmTimeInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PmTimeInActionPerformed
-//       try {
-//              if (employeesID.getText().equals("0")) {
-//                JOptionPane.showMessageDialog(null, "Invalid ID");
-//            }else{
-//                    LocalDateTime cur_dateTime = LocalDateTime.now();
-//            
-//            int empIDStr = Integer.parseInt(employeesID.getText());
-//            Icon employeesImageProfile = EmployeesImage.getImage();
-//            attendanceController.pmtimeIn(new ModelAttendance(employeesImageProfile, empIDStr, FullName.getText(), cur_dateTime, cur_dateTime, cur_dateTime, cur_dateTime));
-//      
-//            } 
-//            
-//        } catch (Exception e) {
-//        }
-    }//GEN-LAST:event_PmTimeInActionPerformed
-
-    private void PmTimeOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PmTimeOutActionPerformed
-//      try {
-//                   if (employeesID.getText().equals("0")) {
-//                JOptionPane.showMessageDialog(null, "Invalid ID");
-//            }else{
-//                  LocalDateTime cur_dateTime = LocalDateTime.now();
-//            
-//            int empIDStr = Integer.parseInt(employeesID.getText());
-//            Icon employeesImageProfile = EmployeesImage.getImage();
-//            attendanceController.pmtimeOut(new ModelAttendance(employeesImageProfile, empIDStr, FullName.getText(), cur_dateTime, cur_dateTime, cur_dateTime, cur_dateTime));
-//   
-//            } 
-//            
-//        } catch (Exception e) {
-//        }
-    }//GEN-LAST:event_PmTimeOutActionPerformed
+    private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed
+      srchFieldScn();
+    }//GEN-LAST:event_SearchFieldActionPerformed
 
    
     public static void main(String args[]) {
@@ -405,11 +350,8 @@ private void srchFieldScn(){
     private javax.swing.JLabel DepartMent;
     private AttendanceManagement.Components.ImageBox EmployeesImage;
     private javax.swing.JLabel FullName;
-    private javax.swing.JButton PmTimeIn;
-    private javax.swing.JButton PmTimeOut;
-    private AttendanceManagement.Components.TextField SearchField;
+    private javax.swing.JTextField SearchField;
     private javax.swing.JLabel employeesID;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

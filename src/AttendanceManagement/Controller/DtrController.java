@@ -30,6 +30,10 @@ public class DtrController {
 "    TIMEDIFF(ad.AmTimeOut, ad.AmTimeIn) AS TotalAmWorkHours,\n" +
 "    TIMEDIFF(ad.PmTimeOut, ad.PmTimeIn) AS TotalPmWorkHours,\n" +
 "    SEC_TO_TIME(\n" +
+"        TIME_TO_SEC(TIMEDIFF(ad.AmTimeOut, ad.AmTimeIn)) +\n" +
+"        TIME_TO_SEC(TIMEDIFF(ad.PmTimeOut, ad.PmTimeIn))\n" +
+"    ) AS TotalWorkHours,\n" +
+"    SEC_TO_TIME(\n" +
 "        TIME_TO_SEC(\n" +
 "            IFNULL(\n" +
 "                GREATEST(\n" +
@@ -86,6 +90,12 @@ public class DtrController {
 "    'Total' AS PmTimeOut,\n" +
 "    SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ad.AmTimeOut, ad.AmTimeIn)))) AS TotalAmWorkHours,\n" +
 "    SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ad.PmTimeOut, ad.PmTimeIn)))) AS TotalPmWorkHours,\n" +
+"    SEC_TO_TIME(\n" +
+"        SUM(\n" +
+"            TIME_TO_SEC(TIMEDIFF(ad.AmTimeOut, ad.AmTimeIn)) +\n" +
+"            TIME_TO_SEC(TIMEDIFF(ad.PmTimeOut, ad.PmTimeIn))\n" +
+"        )\n" +
+"    ) AS TotalWorkHours,\n" +
 "    SEC_TO_TIME(\n" +
 "        SUM(\n" +
 "            TIME_TO_SEC(\n" +
@@ -152,8 +162,7 @@ public class DtrController {
                 v.add(rs.getString("AmTimeOut"));
                 v.add(rs.getString("PmTimeIn"));
                 v.add(rs.getString("PmTimeOut"));
-                v.add(rs.getString("TotalAmWorkHours"));
-                v.add(rs.getString("TotalPmWorkHours"));
+                v.add(rs.getString("TotalWorkHours"));
                 v.add(rs.getString("AM_PM_UnderTime"));
                 v.add(rs.getString("OverTime"));
                 model.addRow(v);
