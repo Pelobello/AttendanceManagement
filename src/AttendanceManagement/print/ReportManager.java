@@ -42,15 +42,17 @@ public static ReportManager getInstance(){
         jReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/AttendanceManagement/print/AttendanceReport.jrxml"));
     }
     public void printAttendanceReport(ParamenterAttendance data)throws JRException{
-        Map para = new HashMap();
+          Map<String, Object> para = new HashMap<>();
+
         para.put("Name", data.getName());
         para.put("Month", data.getMonth());
-         para.put("Year", data.getYear());
-          para.put("Principal", data.getPrincipal());
-         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data.getFields());
-         JasperPrint print = JasperFillManager.fillReport(jReport, para,dataSource);
-         
-         viewReport(print);
+        para.put("Year", data.getYear());
+        para.put("Principal", data.getPrincipal());
+
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data.getFields());
+        JasperPrint print = JasperFillManager.fillReport(jReport, para, dataSource);
+
+        viewReport(print);
        
        
          
