@@ -4,6 +4,7 @@
  */
 package AttendanceManagement.ModelRecords;
 
+
 /**
  *
  * @author USER
@@ -13,16 +14,21 @@ public class FieldReportAttendance {
     /**
      * @return the day
      */
-    public int getDay() {
+    public String getDay() {
         return day;
     }
 
     /**
      * @param day the day to set
      */
-    public void setDay(int day) {
+    public void setDay(String day) {
         this.day = day;
     }
+
+    /**
+     * @return the day
+     */
+
 
     /**
      * @return the amArrival
@@ -115,17 +121,7 @@ public class FieldReportAttendance {
         return overtime;
     }
 
-    /**
-     * @param overtime the overtime to set
-     */
-    public void setOvertime(String overtime) {
-        this.overtime = overtime;
-    }
-
-    public FieldReportAttendance() {
-    }
-
-    public FieldReportAttendance(int day, String amArrival, String amDeparture, String pmArrival, String pmDeparture, String workhours, String undertime, String overtime) {
+    public FieldReportAttendance(String day, String amArrival, String amDeparture, String pmArrival, String pmDeparture, String workhours, String undertime, String overtime) {
         this.day = day;
         this.amArrival = amArrival;
         this.amDeparture = amDeparture;
@@ -135,8 +131,17 @@ public class FieldReportAttendance {
         this.undertime = undertime;
         this.overtime = overtime;
     }
+
+    public void setOvertime(String overtime) {
+        this.overtime = overtime;
+    }
+
+    public FieldReportAttendance() {
+    }
+
+
     
-   private int day;
+   private String day;
    private String amArrival;
    private String amDeparture;
    private String pmArrival;
@@ -145,5 +150,5 @@ public class FieldReportAttendance {
     private String undertime;
      private String overtime;
    
-   
+ 
 }

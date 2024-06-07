@@ -83,10 +83,10 @@ public class DtrController {
 "UNION ALL\n" +
 "\n" +
 "SELECT \n" +
-"    NULL AS Day,\n" +
-"    NULL AS AmTimeIn,\n" +
-"    NULL AS AmTimeOut,\n" +
-"    NULL AS PmTimeIn,\n" +
+"    '' AS Day,\n" +
+"    '' AS AmTimeIn,\n" +
+"    '' AS AmTimeOut,\n" +
+"    '' AS PmTimeIn,\n" +
 "    'Total' AS PmTimeOut,\n" +
 "    SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ad.AmTimeOut, ad.AmTimeIn)))) AS TotalAmWorkHours,\n" +
 "    SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ad.PmTimeOut, ad.PmTimeIn)))) AS TotalPmWorkHours,\n" +

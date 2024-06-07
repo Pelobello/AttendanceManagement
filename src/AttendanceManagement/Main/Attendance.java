@@ -6,6 +6,7 @@ import AttendanceManagement.Controller.EmployeesController;
 import AttendanceManagement.Model.ModelAttendance;
 import AttendanceManagement.Model.ModelEmployees;
 import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.time.LocalDateTime;
@@ -23,6 +24,7 @@ public class Attendance extends javax.swing.JFrame {
   private AttendanceController attendanceController = new AttendanceController();
     public Attendance() {
         initComponents();
+    
 //         setExtendedState(Attendance.MAXIMIZED_BOTH);
   SearchField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search...");
  SearchField.putClientProperty(FlatClientProperties.TEXT_FIELD_TRAILING_ICON, new FlatSVGIcon("AttendanceManagement/Images_Icons/search.svg"));
@@ -336,7 +338,8 @@ private void srchFieldScn(){
 
    
     public static void main(String args[]) {
-        FlatLightLaf.setup();
+        FlatIntelliJLaf.registerCustomDefaultsSource("AttendanceManagement/StyleProperties");
+        FlatIntelliJLaf.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Attendance().setVisible(true);

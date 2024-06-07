@@ -10,6 +10,20 @@ import java.util.List;
 public class ParamenterAttendance {
 
     /**
+     * @return the principal
+     */
+    public String getPrincipal() {
+        return principal;
+    }
+
+    /**
+     * @param principal the principal to set
+     */
+    public void setPrincipal(String principal) {
+        this.principal = principal;
+    }
+
+    /**
      * @return the name
      */
     public String getName() {
@@ -66,15 +80,19 @@ public class ParamenterAttendance {
     public ParamenterAttendance() {
     }
 
-    public ParamenterAttendance(String name, String month, int year, List<FieldReportAttendance> fields) {
+    public ParamenterAttendance(String name, String month, int year, List<FieldReportAttendance> fields, String principal) {
         this.name = name;
         this.month = month;
         this.year = year;
         this.fields = fields;
+        this.principal = principal;
     }
+
+ 
     
     private String name;
     private String month;
     private int year;
     private List<FieldReportAttendance>fields;
+    private String principal;
 }
