@@ -1,12 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package AttendanceManagement.Forms;
 
+import AttendanceManagement.Controller.EmployeesData;
+import AttendanceManagement.Model.ModelEmployeesData;
 import com.formdev.flatlaf.FlatClientProperties;
+import java.util.List;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,8 +16,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class EmployeesRecords extends javax.swing.JPanel {
 
     private DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    private EmployeesData employeesData = new EmployeesData();
     public EmployeesRecords() {
         initComponents();
+        loadData();
         init();
     }
 private void init() {
@@ -39,7 +42,32 @@ private void init() {
                 + "selectionForeground:$Table.foreground;");
 
 }
-   
+   private void loadData(){
+       try {
+           DefaultTableModel model = (DefaultTableModel)employeesTable.getModel();
+           model.setRowCount(0);
+           
+           List<ModelEmployeesData>list = employeesData.getallData();
+           for (ModelEmployeesData d : list) {
+               model.addRow(d.tableRow(employeesTable.getRowCount()+1));
+           }
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+   }
+   private void searchData(){
+       try {
+           DefaultTableModel model = (DefaultTableModel)employeesTable.getModel();
+           model.setRowCount(0);
+           
+           List<ModelEmployeesData>list = employeesData.searchlData((String)searchDepartment.getSelectedItem());
+           for (ModelEmployeesData d : list) {
+               model.addRow(d.tableRow(employeesTable.getRowCount()+1));
+           }
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+   }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -49,28 +77,43 @@ private void init() {
         employeesTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        searchDepartment = new javax.swing.JComboBox<>();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        employeesTable.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         employeesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Employee ID", "Name", "Middle Name", "Last Name", "Position", "Department", "DateAssumed", "Plantilla #"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(employeesTable);
 
         jButton1.setText("PDF");
 
         jButton2.setText("EXCEL");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        searchDepartment.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        searchDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALL TEACHERS", "JHS", "SHS", "NTP" }));
+        searchDepartment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchDepartmentActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -86,7 +129,7 @@ private void init() {
                         .addComponent(jButton1))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1110, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18))
         );
@@ -94,7 +137,7 @@ private void init() {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -116,14 +159,18 @@ private void init() {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void searchDepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchDepartmentActionPerformed
+      searchData();
+    }//GEN-LAST:event_searchDepartmentActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable employeesTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> searchDepartment;
     // End of variables declaration//GEN-END:variables
 
     

@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat;
 
 public class EmployeesForm extends javax.swing.JPanel {
     private Main main;
+    private EmployeesDataForms dataForms = new EmployeesDataForms();
     private DateChooser dc = new DateChooser();
     private EmployeesController employeesController = new EmployeesController();
     private ModelEmployees modelEmployees = new ModelEmployees();
@@ -40,11 +41,19 @@ public class EmployeesForm extends javax.swing.JPanel {
     return reply == JOptionPane.YES_OPTION;
         
     }
+    private void textFieldtoNone(){
+        employeeID.setText("");
+        firstName.setText("");
+        middleName.setText("");
+        FamilyName.setText("");
+        position.setText("");
+        plantillaItem.setText("");
+    }
    private boolean TxtFieldData() {
     if (employeeID.getText().isEmpty() || firstName.getText().isEmpty() || FamilyName.getText().isEmpty() ||
         position.getText().isEmpty()|| dateAssumed.getText().isEmpty() || 
         plantillaItem.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please fill all fields with *!");
+        JOptionPane.showMessageDialog(this, "*Please fill in all fields marked with !");
         return false;
     } else {
         return true;
@@ -68,13 +77,15 @@ public class EmployeesForm extends javax.swing.JPanel {
    private void AddEmployees() throws IOException, ParseException {
          if (TxtFieldData()) {
             // Show confirmation dialog
-            if (Confirmation()) {
-              
+                 if (Confirmation()) {             
                 // Add employee               
                 employeesController.addEmployee(employeesData());
-                GlassPanePopup.closePopupAll();
+                textFieldtoNone();
                 main.testData();
-            }
+            
+            
+             }
+            
         }   
    }
 
@@ -82,11 +93,11 @@ public class EmployeesForm extends javax.swing.JPanel {
         int sqlId = Integer.parseInt(id.getText());
          if (TxtFieldData()) {
             // Show confirmation dialog
-            if (Confirmation()) {
-             
+            if (Confirmation()) {             
                 employeesController.updateEmployeesData(employeesData());
                 GlassPanePopup.closePopupAll();
                 main.testData();
+                
             }
         }
       
@@ -158,11 +169,11 @@ public class EmployeesForm extends javax.swing.JPanel {
 
         employeeID.setForeground(new java.awt.Color(102, 102, 102));
         employeeID.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
-        employeeID.setLabelText("Employees ID#");
+        employeeID.setLabelText("Employees ID#*");
 
         firstName.setForeground(new java.awt.Color(102, 102, 102));
         firstName.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
-        firstName.setLabelText("First Name");
+        firstName.setLabelText("First Name*");
 
         middleName.setForeground(new java.awt.Color(102, 102, 102));
         middleName.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
@@ -170,21 +181,21 @@ public class EmployeesForm extends javax.swing.JPanel {
 
         position.setForeground(new java.awt.Color(102, 102, 102));
         position.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
-        position.setLabelText("Position/Designation");
+        position.setLabelText("Position/Designation*");
 
         FamilyName.setForeground(new java.awt.Color(102, 102, 102));
         FamilyName.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
-        FamilyName.setLabelText("Family Name");
+        FamilyName.setLabelText("Family Name*");
 
         dateAssumed.setEditable(false);
         dateAssumed.setBackground(new java.awt.Color(255, 255, 255));
         dateAssumed.setForeground(new java.awt.Color(102, 102, 102));
         dateAssumed.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
-        dateAssumed.setLabelText("Date Assumed To Office");
+        dateAssumed.setLabelText("Date Assumed To Office*");
 
         plantillaItem.setForeground(new java.awt.Color(102, 102, 102));
         plantillaItem.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
-        plantillaItem.setLabelText(" Plantilla Item #");
+        plantillaItem.setLabelText(" Plantilla Item #*");
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -242,9 +253,8 @@ public class EmployeesForm extends javax.swing.JPanel {
 
         id.setText("0");
 
-        department.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        department.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
         department.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "JHS", "SHS", "NTP" }));
-        department.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DepartMent", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(102, 102, 102))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -300,8 +310,7 @@ public class EmployeesForm extends javax.swing.JPanel {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(51, Short.MAX_VALUE))
+                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -312,7 +321,7 @@ public class EmployeesForm extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

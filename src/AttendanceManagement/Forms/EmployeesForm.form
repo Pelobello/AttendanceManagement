@@ -27,7 +27,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+          <Component id="jPanel1" min="-2" pref="416" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -108,7 +108,6 @@
                           <Component id="id" min="-2" pref="33" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="51" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -181,7 +180,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="17" style="0"/>
             </Property>
-            <Property name="labelText" type="java.lang.String" value="Employees ID#"/>
+            <Property name="labelText" type="java.lang.String" value="Employees ID#*"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -195,7 +194,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="17" style="0"/>
             </Property>
-            <Property name="labelText" type="java.lang.String" value="First Name"/>
+            <Property name="labelText" type="java.lang.String" value="First Name*"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -223,7 +222,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="17" style="0"/>
             </Property>
-            <Property name="labelText" type="java.lang.String" value="Position/Designation"/>
+            <Property name="labelText" type="java.lang.String" value="Position/Designation*"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -237,7 +236,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="17" style="0"/>
             </Property>
-            <Property name="labelText" type="java.lang.String" value="Family Name"/>
+            <Property name="labelText" type="java.lang.String" value="Family Name*"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -255,7 +254,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="17" style="0"/>
             </Property>
-            <Property name="labelText" type="java.lang.String" value="Date Assumed To Office"/>
+            <Property name="labelText" type="java.lang.String" value="Date Assumed To Office*"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -269,7 +268,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="17" style="0"/>
             </Property>
-            <Property name="labelText" type="java.lang.String" value=" Plantilla Item #"/>
+            <Property name="labelText" type="java.lang.String" value=" Plantilla Item #*"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -388,7 +387,7 @@
         <Component class="javax.swing.JComboBox" name="department">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="14" style="0"/>
+              <Font name="Segoe UI" size="17" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="3">
@@ -396,14 +395,6 @@
                 <StringItem index="1" value="SHS"/>
                 <StringItem index="2" value="NTP"/>
               </StringArray>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="DepartMent">
-                  <Font PropertyName="font" name="Segoe UI" size="14" style="0"/>
-                  <Color PropertyName="color" blue="66" green="66" red="66" type="rgb"/>
-                </TitledBorder>
-              </Border>
             </Property>
           </Properties>
           <AuxValues>

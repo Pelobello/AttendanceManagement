@@ -21,6 +21,7 @@ import java.util.Base64;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import raven.glasspanepopup.GlassPanePopup;
 
 public class EmployeesController {
 
@@ -48,7 +49,7 @@ public class EmployeesController {
             String base64Image = encodeImageToBase64(bufferedImage);
 
             if (existingEmployee(data)) {
-                JOptionPane.showMessageDialog(null, "Employee ID already exists!");
+                JOptionPane.showMessageDialog(null, "Employee already Exist!");
             } else {
                 if (ps != null) {
                     ps.setInt(1, data.getId());
@@ -63,6 +64,7 @@ public class EmployeesController {
 
                     ps.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Successfully Added");
+                     GlassPanePopup.closePopupAll();
                 }
             }
         } catch (SQLException e) {

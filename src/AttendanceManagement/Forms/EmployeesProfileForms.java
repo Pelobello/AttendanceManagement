@@ -8,6 +8,7 @@ import AttendanceManagement.Model.ModelEmployees;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
@@ -60,6 +61,19 @@ private EmployeesController employeesController = new EmployeesController(this);
                 }
            }
        });
+          employeesItem.addMouseListener(new MouseAdapter() {
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // Set the cursor to the hand cursor
+        employeesItem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // Optionally, reset the cursor when the mouse exits the component
+        employeesItem.setCursor(Cursor.getDefaultCursor());
+    }
+});
         panelItem.add(employeesItem);
         repaint();
         revalidate();

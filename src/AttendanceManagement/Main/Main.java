@@ -316,10 +316,12 @@ public class Main extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        employeesForm.updateBtn.setVisible(false);
-        employeesForm.deleteBtn.setVisible(false);
-        employeesForm.addBtn.setVisible(true);
-        GlassPanePopup.showPopup(employeesForm);
+        
+        EmployeesForm form = new EmployeesForm(this);
+        form.updateBtn.setVisible(false);
+        form.deleteBtn.setVisible(false);
+        form.addBtn.setVisible(true);
+        GlassPanePopup.showPopup(form);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

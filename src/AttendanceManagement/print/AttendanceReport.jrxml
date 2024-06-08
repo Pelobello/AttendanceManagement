@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="testReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fc7d5428-87ac-46de-beef-6e1c3573c550">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="testReport" language="groovy" pageWidth="612" pageHeight="1008" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fc7d5428-87ac-46de-beef-6e1c3573c550">
 	<property name="ireport.zoom" value="1.6105100000000052"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="76"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="Name" class="java.lang.String"/>
 	<parameter name="Month" class="java.lang.String"/>
 	<parameter name="Year" class="java.lang.String"/>
@@ -100,7 +100,7 @@
 	<columnHeader>
 		<band height="48" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="8" width="69" height="40" uuid="4081bede-1ca5-4272-be3b-29c40a897967"/>
+				<reportElement x="10" y="8" width="69" height="40" uuid="4081bede-1ca5-4272-be3b-29c40a897967"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -114,7 +114,7 @@
 				<text><![CDATA[day]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="69" y="28" width="69" height="20" uuid="8a20b57b-014d-46d2-a880-c594520c33a8"/>
+				<reportElement x="79" y="28" width="69" height="20" uuid="8a20b57b-014d-46d2-a880-c594520c33a8"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -128,7 +128,7 @@
 				<text><![CDATA[Arrival]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="138" y="28" width="69" height="20" uuid="a134e3c0-407a-4165-be33-82a078fb5862"/>
+				<reportElement x="148" y="28" width="69" height="20" uuid="a134e3c0-407a-4165-be33-82a078fb5862"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -142,7 +142,7 @@
 				<text><![CDATA[Departure]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="207" y="28" width="69" height="20" uuid="4a74caae-3e2b-43f4-a1a1-59ea1b5bf980"/>
+				<reportElement x="217" y="28" width="69" height="20" uuid="4a74caae-3e2b-43f4-a1a1-59ea1b5bf980"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -156,7 +156,7 @@
 				<text><![CDATA[Arrival]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="276" y="28" width="69" height="20" uuid="a15ccb95-a11f-400e-ac44-0d09c2ca5914"/>
+				<reportElement x="286" y="28" width="69" height="20" uuid="a15ccb95-a11f-400e-ac44-0d09c2ca5914"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -170,7 +170,7 @@
 				<text><![CDATA[Departure]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="345" y="8" width="69" height="40" uuid="a194b939-f50b-4090-841d-e754a96fec0d"/>
+				<reportElement x="355" y="8" width="69" height="40" uuid="a194b939-f50b-4090-841d-e754a96fec0d"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -184,7 +184,7 @@
 				<text><![CDATA[Workhours]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="414" y="8" width="69" height="40" uuid="96372b48-29fc-4762-8e16-12d2d70066ea"/>
+				<reportElement x="424" y="8" width="69" height="40" uuid="96372b48-29fc-4762-8e16-12d2d70066ea"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -198,7 +198,7 @@
 				<text><![CDATA[Undertime]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="483" y="8" width="69" height="40" uuid="c83ed9f8-e764-44d4-86e6-c19d61c38cae"/>
+				<reportElement x="493" y="8" width="69" height="40" uuid="c83ed9f8-e764-44d4-86e6-c19d61c38cae"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -212,7 +212,7 @@
 				<text><![CDATA[Overtime]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="69" y="8" width="138" height="20" uuid="2b66d270-61fc-4eb7-aa65-7e137f3ac056"/>
+				<reportElement x="79" y="8" width="138" height="20" uuid="2b66d270-61fc-4eb7-aa65-7e137f3ac056"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -226,7 +226,7 @@
 				<text><![CDATA[A.M]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="207" y="8" width="138" height="20" uuid="ccdf58a6-c648-46bf-aec7-2d188776efce"/>
+				<reportElement x="217" y="8" width="138" height="20" uuid="ccdf58a6-c648-46bf-aec7-2d188776efce"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -244,7 +244,7 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="69" height="20" uuid="5430b0f4-c5fa-4201-af29-157af6d967b1"/>
+				<reportElement x="10" y="0" width="69" height="20" uuid="5430b0f4-c5fa-4201-af29-157af6d967b1"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -258,7 +258,7 @@
 				<textFieldExpression><![CDATA[$F{day}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="69" y="0" width="69" height="20" uuid="d55bab51-4bc5-4e25-b8b9-26a4c0c25fdf"/>
+				<reportElement x="79" y="0" width="69" height="20" uuid="d55bab51-4bc5-4e25-b8b9-26a4c0c25fdf"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -272,7 +272,7 @@
 				<textFieldExpression><![CDATA[$F{amArrival}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="138" y="0" width="69" height="20" uuid="4418537b-e90d-483c-912f-3ed07141d235"/>
+				<reportElement x="148" y="0" width="69" height="20" uuid="4418537b-e90d-483c-912f-3ed07141d235"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -286,7 +286,7 @@
 				<textFieldExpression><![CDATA[$F{amDeparture}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="207" y="0" width="69" height="20" uuid="fcf04da4-563a-4132-bcbd-648e28d9faee"/>
+				<reportElement x="217" y="0" width="69" height="20" uuid="fcf04da4-563a-4132-bcbd-648e28d9faee"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -300,7 +300,7 @@
 				<textFieldExpression><![CDATA[$F{pmArrival}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="276" y="0" width="69" height="20" uuid="28f02d68-5ec0-4cf2-b734-f8a8fc1d1cf0"/>
+				<reportElement x="286" y="0" width="69" height="20" uuid="28f02d68-5ec0-4cf2-b734-f8a8fc1d1cf0"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -314,7 +314,7 @@
 				<textFieldExpression><![CDATA[$F{pmDeparture}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="345" y="0" width="69" height="20" uuid="5be9c7ea-6b4e-470a-9987-7d54ee636bff"/>
+				<reportElement x="355" y="0" width="69" height="20" uuid="5be9c7ea-6b4e-470a-9987-7d54ee636bff"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -328,7 +328,7 @@
 				<textFieldExpression><![CDATA[$F{workhours}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="414" y="0" width="69" height="20" uuid="7d689427-1703-47e5-ad41-12c9f12d61dd"/>
+				<reportElement x="424" y="0" width="69" height="20" uuid="7d689427-1703-47e5-ad41-12c9f12d61dd"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -342,7 +342,7 @@
 				<textFieldExpression><![CDATA[$F{undertime}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="483" y="0" width="69" height="20" uuid="ecd0784d-e9b6-4982-adfa-76002374bf5f"/>
+				<reportElement x="493" y="0" width="69" height="20" uuid="ecd0784d-e9b6-4982-adfa-76002374bf5f"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>

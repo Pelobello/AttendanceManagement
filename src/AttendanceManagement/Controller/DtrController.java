@@ -27,11 +27,11 @@ public class DtrController {
 "    DATE_FORMAT(ad.AmTimeOut, '%l:%i %p') AS AmTimeOut,\n" +
 "    DATE_FORMAT(ad.PmTimeIn, '%l:%i %p') AS PmTimeIn,\n" +
 "    DATE_FORMAT(ad.PmTimeOut, '%l:%i %p') AS PmTimeOut,\n" +
-"    TIMEDIFF(ad.AmTimeOut, ad.AmTimeIn) AS TotalAmWorkHours,\n" +
-"    TIMEDIFF(ad.PmTimeOut, ad.PmTimeIn) AS TotalPmWorkHours,\n" +
+"    IFNULL(TIMEDIFF(ad.AmTimeOut, ad.AmTimeIn), '00:00:00') AS TotalAmWorkHours,\n" +
+"    IFNULL(TIMEDIFF(ad.PmTimeOut, ad.PmTimeIn), '00:00:00') AS TotalPmWorkHours,\n" +
 "    SEC_TO_TIME(\n" +
-"        TIME_TO_SEC(TIMEDIFF(ad.AmTimeOut, ad.AmTimeIn)) +\n" +
-"        TIME_TO_SEC(TIMEDIFF(ad.PmTimeOut, ad.PmTimeIn))\n" +
+"        IFNULL(TIME_TO_SEC(TIMEDIFF(ad.AmTimeOut, ad.AmTimeIn)), 0) +\n" +
+"        IFNULL(TIME_TO_SEC(TIMEDIFF(ad.PmTimeOut, ad.PmTimeIn)), 0)\n" +
 "    ) AS TotalWorkHours,\n" +
 "    SEC_TO_TIME(\n" +
 "        TIME_TO_SEC(\n" +
@@ -88,12 +88,12 @@ public class DtrController {
 "    '' AS AmTimeOut,\n" +
 "    '' AS PmTimeIn,\n" +
 "    'Total' AS PmTimeOut,\n" +
-"    SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ad.AmTimeOut, ad.AmTimeIn)))) AS TotalAmWorkHours,\n" +
-"    SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ad.PmTimeOut, ad.PmTimeIn)))) AS TotalPmWorkHours,\n" +
+"    SEC_TO_TIME(SUM(IFNULL(TIME_TO_SEC(TIMEDIFF(ad.AmTimeOut, ad.AmTimeIn)), 0))) AS TotalAmWorkHours,\n" +
+"    SEC_TO_TIME(SUM(IFNULL(TIME_TO_SEC(TIMEDIFF(ad.PmTimeOut, ad.PmTimeIn)), 0))) AS TotalPmWorkHours,\n" +
 "    SEC_TO_TIME(\n" +
 "        SUM(\n" +
-"            TIME_TO_SEC(TIMEDIFF(ad.AmTimeOut, ad.AmTimeIn)) +\n" +
-"            TIME_TO_SEC(TIMEDIFF(ad.PmTimeOut, ad.PmTimeIn))\n" +
+"            IFNULL(TIME_TO_SEC(TIMEDIFF(ad.AmTimeOut, ad.AmTimeIn)), 0) +\n" +
+"            IFNULL(TIME_TO_SEC(TIMEDIFF(ad.PmTimeOut, ad.PmTimeIn)), 0)\n" +
 "        )\n" +
 "    ) AS TotalWorkHours,\n" +
 "    SEC_TO_TIME(\n" +

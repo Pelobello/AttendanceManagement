@@ -41,10 +41,11 @@ public class DtrForms extends javax.swing.JPanel {
     public DtrForms() {
         
         initComponents();
-        setOpaque(false);
-        year_monthDATA();
+//        setOpaque(false);
+       
         init();
         testReport();
+         year_monthDATA();
        
     }
 private void init(){
@@ -70,22 +71,43 @@ private void init(){
                 + "cellFocusColor:$TableHeader.hoverBackground;"
                 + "selectionBackground:$TableHeader.hoverBackground;"
                 + "selectionForeground:$Table.foreground;");
-            SearchField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "");
+           
+           SearchField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Employee's ID");
+           Principal.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Principal's Full Name");
            SearchField.putClientProperty(FlatClientProperties.TEXT_FIELD_TRAILING_ICON, new FlatSVGIcon("AttendanceManagement/Images_Icons/search.svg"));
          
 }
 private void year_monthDATA(){
-    Calendar c = Calendar.getInstance();
-//    Year.addItem("2014");
-    
-   int current_year = c.get(Calendar.YEAR);
-   Year.setSelectedItem(current_year);
-    for (int year = 2015; year <=   current_year; year++) {
+     Calendar c = Calendar.getInstance();
+    int current_year = c.get(Calendar.YEAR);
+    int current_month = c.get(Calendar.MONTH); // Note: Months are 0-based (January is 0)
+
+    // Clear existing items
+    Year.removeAllItems();
+    Month.removeAllItems();
+
+    // Add years from 2015 to the current year
+    for (int year = 2015; year <= current_year; year++) {
         String yearStr = Integer.toString(year);
-        
         Year.addItem(yearStr);
-        
     }
+
+    // Set the selected item to the current year
+    Year.setSelectedItem(Integer.toString(current_year));
+
+    // Add months to the Month combobox
+    String[] months = {
+        "January", "February", "March", "April", "May", "June", 
+        "July", "August", "September", "October", "November", "December"
+    };
+
+    for (String month : months) {
+        Month.addItem(month);
+    }
+
+    // Set the selected item to the current month
+    Month.setSelectedItem(months[current_month]);
+   
 }
 private void SearchEmployees(){
      int searchID = Integer.parseInt(SearchField.getText());
@@ -144,7 +166,6 @@ private void testReport(){
         panelTable = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         dtrTable = new javax.swing.JTable();
-        SearchField = new AttendanceManagement.Components.TextField();
         Month = new javax.swing.JComboBox<>();
         Year = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
@@ -154,7 +175,8 @@ private void testReport(){
         DepartMent = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        Principal = new AttendanceManagement.Components.TextField();
+        SearchField = new javax.swing.JTextField();
+        Principal = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(1145, 659));
 
@@ -220,18 +242,10 @@ private void testReport(){
             dtrTable.getColumnModel().getColumn(7).setResizable(false);
         }
 
-        SearchField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        SearchField.setLabelText("Employees ID");
-        SearchField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SearchFieldActionPerformed(evt);
-            }
-        });
-
-        Month.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Month.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         Month.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
 
-        Year.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Year.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         Year.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2014" }));
         Year.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,17 +258,14 @@ private void testReport(){
         FullName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         FullName.setForeground(new java.awt.Color(102, 102, 102));
         FullName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        FullName.setText("FullName");
 
         employeesID.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         employeesID.setForeground(new java.awt.Color(102, 102, 102));
         employeesID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        employeesID.setText("IDNumber");
 
         DepartMent.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         DepartMent.setForeground(new java.awt.Color(102, 102, 102));
         DepartMent.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        DepartMent.setText("Department");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -267,21 +278,24 @@ private void testReport(){
                     .addComponent(FullName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(employeesID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(EmployeesImage, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(EmployeesImage, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(EmployeesImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(FullName, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(employeesID, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(DepartMent, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 31, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(FullName, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(employeesID, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(DepartMent, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EmployeesImage, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jButton1.setText("Pdf");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,6 +303,7 @@ private void testReport(){
             }
         });
 
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jButton2.setText("Excel");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,13 +311,16 @@ private void testReport(){
             }
         });
 
-        Principal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Principal.setLabelText("Principal");
-        Principal.addActionListener(new java.awt.event.ActionListener() {
+        SearchField.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        SearchField.setForeground(new java.awt.Color(102, 102, 102));
+        SearchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PrincipalActionPerformed(evt);
+                SearchFieldActionPerformed(evt);
             }
         });
+
+        Principal.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        Principal.setForeground(new java.awt.Color(102, 102, 102));
 
         javax.swing.GroupLayout panelTableLayout = new javax.swing.GroupLayout(panelTable);
         panelTable.setLayout(panelTableLayout);
@@ -320,36 +338,37 @@ private void testReport(){
                         .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1)
                             .addGroup(panelTableLayout.createSequentialGroup()
-                                .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Year, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(panelTableLayout.createSequentialGroup()
-                                        .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(SearchField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(Month, javax.swing.GroupLayout.Alignment.LEADING, 0, 203, Short.MAX_VALUE))
-                                        .addGap(26, 26, 26)
-                                        .addComponent(Principal, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(Month, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(Year, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(panelTableLayout.createSequentialGroup()
+                                        .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(Principal)))
+                                .addGap(212, 212, 212)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(16, 16, 16))
         );
         panelTableLayout.setVerticalGroup(
             panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTableLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTableLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTableLayout.createSequentialGroup()
                         .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(5, 5, 5)
-                        .addComponent(Month, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Year, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelTableLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(5, 5, 5)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+                            .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Principal, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9)
+                        .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Month, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Year, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -368,10 +387,6 @@ private void testReport(){
             .addComponent(panelTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed
-      srchFieldScn();
-    }//GEN-LAST:event_SearchFieldActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     if (Principal.getText().isEmpty()) {
@@ -467,13 +482,13 @@ private void testReport(){
       
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void PrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrincipalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PrincipalActionPerformed
-
     private void YearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YearActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_YearActionPerformed
+
+    private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed
+    srchFieldScn();
+    }//GEN-LAST:event_SearchFieldActionPerformed
 
  private File showFileChooser() {
     JFileChooser fileChooser = new JFileChooser();
@@ -490,8 +505,8 @@ private void testReport(){
     private AttendanceManagement.Components.ImageBox EmployeesImage;
     private javax.swing.JLabel FullName;
     private javax.swing.JComboBox<String> Month;
-    private AttendanceManagement.Components.TextField Principal;
-    private AttendanceManagement.Components.TextField SearchField;
+    private javax.swing.JTextField Principal;
+    private javax.swing.JTextField SearchField;
     private javax.swing.JComboBox<String> Year;
     private javax.swing.JTable dtrTable;
     private javax.swing.JLabel employeesID;

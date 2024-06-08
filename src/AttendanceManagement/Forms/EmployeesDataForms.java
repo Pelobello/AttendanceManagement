@@ -9,8 +9,6 @@ import AttendanceManagement.Model.ModelAttendance;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.raven.datechooser.DateChooser;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
@@ -64,7 +62,7 @@ public class EmployeesDataForms extends javax.swing.JPanel {
           searching.putClientProperty(FlatClientProperties.STYLE, "");
     }
     
-    private void loadData(){
+    public void loadData(){
         try {
             DefaultTableModel model = (DefaultTableModel)employeesTable.getModel();
             model.setRowCount(0);
