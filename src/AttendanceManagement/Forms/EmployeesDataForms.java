@@ -22,6 +22,7 @@ import raven.glasspanepopup.GlassPanePopup;
 import java.sql.Time;
 import java.text.ParseException;
 import java.util.Date;
+
 /**
  *
  * @author USER
@@ -43,6 +44,8 @@ public class EmployeesDataForms extends javax.swing.JPanel {
               for (int i = 0; i < employeesTable.getColumnCount(); i++) {
             employeesTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
+              
+             
            employeesTable.getTableHeader().putClientProperty(FlatClientProperties.STYLE, ""
                 + "height:30;"
                 + "font:bold;"
@@ -148,11 +151,11 @@ public class EmployeesDataForms extends javax.swing.JPanel {
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(searching, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                        .addComponent(searching, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                        .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
                         .addGap(693, 693, 693))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1122, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1109, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -184,7 +187,7 @@ public class EmployeesDataForms extends javax.swing.JPanel {
 
     if (selectedRow >= 0) {
         TableModel model = employeesTable.getModel();
-        AttendanceUpdateForms forms = new AttendanceUpdateForms();
+        AttendanceUpdateForms forms = new AttendanceUpdateForms(this);
 
         // Set values to form fields
         forms.id.setText(getStringValue(model.getValueAt(selectedRow, 0)));

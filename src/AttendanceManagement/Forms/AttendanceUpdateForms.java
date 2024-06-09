@@ -12,27 +12,41 @@ import java.text.SimpleDateFormat;
 import java.sql.Time;
 import java.text.ParseException;
 import java.time.LocalTime;
+import javax.swing.JOptionPane;
 
 public class AttendanceUpdateForms extends javax.swing.JPanel {
-
+    private EmployeesDataForms dataForms;
     private AttendanceController controller = new AttendanceController();
-    public AttendanceUpdateForms() {
+    public AttendanceUpdateForms(EmployeesDataForms dataForms) {
         initComponents();
+        this.dataForms = dataForms;
         amArrivalTP.set24HourView(true);
-      
+        pmDepartureTP.set24HourView(true);
+         pmArrivalTP.set24HourView(true);
+          amDepartureTP.set24HourView(true);
         amArrivalTP.setEditor(amArrival);
+        amDepartureTP.setEditor(amDeparture);
+        pmArrivalTP.setEditor(pmArrival);
+        pmDepartureTP.setEditor(pmDeparture);
+        
 //        amArrivalTP.setEditorIcon(new FlatSVGIcon("AttendanceManagement/Images_Icons/timePicker.svg"));
        
         
     }
     
-  
+      private boolean Confirmation(){
+        int reply = JOptionPane.showConfirmDialog(this, "Do you want to proceed?", "Confirmation", JOptionPane.YES_NO_OPTION);
+    return reply == JOptionPane.YES_OPTION;
+        
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         amArrivalTP = new raven.datetime.component.time.TimePicker();
         pmDepartureTP = new raven.datetime.component.time.TimePicker();
+        amDepartureTP = new raven.datetime.component.time.TimePicker();
+        pmArrivalTP = new raven.datetime.component.time.TimePicker();
         jPanel1 = new javax.swing.JPanel();
         id = new javax.swing.JLabel();
         fname = new javax.swing.JLabel();
@@ -67,7 +81,7 @@ public class AttendanceUpdateForms extends javax.swing.JPanel {
         amArrival.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("HH:mm"))));
         amArrival.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         amArrival.setFocusCycleRoot(true);
-        amArrival.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        amArrival.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         amDeparture.setEditable(false);
         amDeparture.setBackground(new java.awt.Color(255, 255, 255));
@@ -154,7 +168,9 @@ public class AttendanceUpdateForms extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
+       
+        if (Confirmation()) {
+             try {
             ModelAttendance attendance = new ModelAttendance();
             int idData = Integer.parseInt(id.getText());
             String amIn = amArrival.getText();
@@ -187,10 +203,13 @@ public class AttendanceUpdateForms extends javax.swing.JPanel {
         }
             attendance.setEmployeesID(idData);
             controller.UpdateData(attendance);
+            dataForms.loadData();
             
         } catch (Exception e) {
             e.printStackTrace();
         }
+        }
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void pmDepartureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pmDepartureActionPerformed
@@ -202,12 +221,14 @@ public class AttendanceUpdateForms extends javax.swing.JPanel {
     public javax.swing.JFormattedTextField amArrival;
     private raven.datetime.component.time.TimePicker amArrivalTP;
     public javax.swing.JFormattedTextField amDeparture;
+    private raven.datetime.component.time.TimePicker amDepartureTP;
     public javax.swing.JLabel department;
     public javax.swing.JLabel fname;
     public javax.swing.JLabel id;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JFormattedTextField pmArrival;
+    private raven.datetime.component.time.TimePicker pmArrivalTP;
     public javax.swing.JFormattedTextField pmDeparture;
     private raven.datetime.component.time.TimePicker pmDepartureTP;
     // End of variables declaration//GEN-END:variables

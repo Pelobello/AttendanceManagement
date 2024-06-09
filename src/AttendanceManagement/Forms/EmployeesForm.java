@@ -28,12 +28,16 @@ public class EmployeesForm extends javax.swing.JPanel {
     private DateChooser dc = new DateChooser();
     private EmployeesController employeesController = new EmployeesController();
     private ModelEmployees modelEmployees = new ModelEmployees();
+    private EmployeesRecords employeesRecords;
+   
     
-    public EmployeesForm(Main main) {
+    public EmployeesForm(Main main,EmployeesRecords employeesRecords) {
         initComponents();
         this.main = main;
+        this.employeesRecords = employeesRecords;
         dc.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
         dc.setTextField(dateAssumed);
+        id.setVisible(false);
     }
    
     private boolean Confirmation(){
@@ -80,8 +84,9 @@ public class EmployeesForm extends javax.swing.JPanel {
                  if (Confirmation()) {             
                 // Add employee               
                 employeesController.addEmployee(employeesData());
-                textFieldtoNone();
+//                textFieldtoNone();
                 main.testData();
+                employeesRecords.loadData();
             
             
              }
@@ -97,6 +102,7 @@ public class EmployeesForm extends javax.swing.JPanel {
                 employeesController.updateEmployeesData(employeesData());
                 GlassPanePopup.closePopupAll();
                 main.testData();
+                 employeesRecords.loadData();
                 
             }
         }
@@ -111,6 +117,7 @@ public class EmployeesForm extends javax.swing.JPanel {
                 employeesController.deleteEmployeesData(modelEmployees);
                 GlassPanePopup.closePopupAll();
                 main.testData();
+                employeesRecords.loadData();
             }      
             }        
     }
@@ -156,8 +163,8 @@ public class EmployeesForm extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(employeesImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+            .addComponent(employeesImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

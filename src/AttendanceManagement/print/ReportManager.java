@@ -2,6 +2,7 @@
 package AttendanceManagement.print;
 
 import AttendanceManagement.ModelRecords.ParamenterAttendance;
+import AttendanceManagement.ModelRecords.ParameterEmployee;
 import java.util.HashMap;
 import java.util.Map;
 import net.sf.jasperreports.engine.JRException;
@@ -21,6 +22,7 @@ import net.sf.jasperreports.view.JasperViewer;
 public class ReportManager {
 private static ReportManager instance;
 private JasperReport jReport;
+private JasperReport teachersReport;
 public static ReportManager getInstance(){
     if (instance == null) {
         instance = new ReportManager();
@@ -37,6 +39,16 @@ public static ReportManager getInstance(){
     }
     public void compileReport()throws JRException{
         jReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/AttendanceManagement/print/AttendanceReport.jrxml"));
+        teachersReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/AttendanceManagement/print/TeachersReport.jrxml"));
+    }
+    public void printTeachersReport(ParameterEmployee data)throws JRException{
+        Map<String,Object> para = new HashMap<>();
+        para.put("school", data.getSchool());
+        para.put("schoolImage", data.getSchoolImage());
+        
+         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data.getField());
+         JasperPrint print = JasperFillManager.fillReport(teachersReport, para,dataSource);
+         viewReport(print);
     }
     public void printAttendanceReport(ParamenterAttendance data)throws JRException{
           Map<String, Object> para = new HashMap<>();
@@ -57,6 +69,23 @@ public static ReportManager getInstance(){
     private void viewReport(JasperPrint print)throws JRException{
         JasperViewer.viewReport(print,false);
         
+    }
+    public void exportReportTeachertoExcel(ParameterEmployee data,String outputPath) throws JRException{
+         Map<String,Object> para = new HashMap<>();
+        para.put("school", data.getSchool());
+        para.put("schoolImage", data.getSchoolImage());
+        
+         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(data.getField());
+         JasperPrint print = JasperFillManager.fillReport(teachersReport, para,dataSource);
+          JRXlsExporter exporter = new JRXlsExporter();
+        exporter.setExporterInput(new SimpleExporterInput(print));
+        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputPath));
+        SimpleXlsReportConfiguration configuration = new SimpleXlsReportConfiguration();
+        configuration.setOnePagePerSheet(true);
+        configuration.setRemoveEmptySpaceBetweenRows(true);
+        exporter.setConfiguration(configuration);
+        
+        exporter.exportReport();
     }
     
     public void exportReportToPdf(ParamenterAttendance data, String outputPath) throws JRException {

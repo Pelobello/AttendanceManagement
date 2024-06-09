@@ -64,7 +64,7 @@ public class EmployeesController {
 
                     ps.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Successfully Added");
-                     GlassPanePopup.closePopupAll();
+//                     GlassPanePopup.closePopupAll();
                 }
             }
         } catch (SQLException e) {
