@@ -306,7 +306,7 @@ public void amtimeOut(ModelAttendance data) {
     try {
         if (existingAmTimeIn(data)) {
             if (!AlreadyAmTimeout(data)) {
-                LocalTime localDateTime = data.getAmTimeIn();
+                LocalTime localDateTime = data.getAmTimeOut();
                 java.sql.Time sqlTimestamp = java.sql.Time.valueOf(localDateTime);
 
                 String sql = "UPDATE attendance_data SET AmTimeOut = ? WHERE EmployeesID = ? AND DATE(AmTimeIn) = CURDATE() AND AmTimeOut IS NULL";
@@ -336,7 +336,7 @@ public void pmtimeIn(ModelAttendance data) {
     try {
         BufferedImage bufferedImage = createBufferedImageWithWhiteBackground((ImageIcon) data.getEmployeesImage());
         String base64Image = encodeImageToBase64(bufferedImage);
-        LocalTime localDateTime = LocalTime.now(); // Assuming you want to use current time for PmTimeIn
+        LocalTime localDateTime =data.getPmTimeIn(); // Assuming you want to use current time for PmTimeIn
         java.sql.Time sqlTimestamp = java.sql.Time.valueOf(localDateTime);
  
         
@@ -429,7 +429,7 @@ public void pmtimeOut(ModelAttendance data) {
     try {
         if (existingPmTimeIn(data)) {
             if (!existingPmTimeOut(data)) {
-                LocalTime localDateTime = LocalTime.now(); // Assuming you want to use current time for PmTimeOut
+                LocalTime localDateTime = data.getPmTimeOut(); // Assuming you want to use current time for PmTimeOut
                 java.sql.Time sqlTimestamp = java.sql.Time.valueOf(localDateTime);
 
                 String sql = "UPDATE attendance_data SET PmTimeOut = ? WHERE EmployeesID = ? AND PmTimeIn IS NOT NULL AND PmTimeOut IS NULL";

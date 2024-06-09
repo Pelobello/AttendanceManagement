@@ -79,7 +79,6 @@ public class AttendanceForm extends javax.swing.JPanel {
             }
         });
         employeesTable.setIntercellSpacing(new java.awt.Dimension(20, 20));
-        employeesTable.setRowMargin(20);
         jScrollPane1.setViewportView(employeesTable);
         if (employeesTable.getColumnModel().getColumnCount() > 0) {
             employeesTable.getColumnModel().getColumn(0).setResizable(false);
@@ -100,8 +99,8 @@ public class AttendanceForm extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1124, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(977, 977, 977)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
