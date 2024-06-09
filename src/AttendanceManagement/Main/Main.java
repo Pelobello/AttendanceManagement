@@ -47,14 +47,14 @@ public class Main extends javax.swing.JFrame {
    private AttendanceController attendanceController = new AttendanceController();
     public Main() {
         initComponents();
-//        setExtendedState(Main.MAXIMIZED_BOTH);
+        setExtendedState(Main.MAXIMIZED_BOTH);
          
         GlassPanePopup.install(this);
       
         changePanel.setLayout(new BorderLayout());
         showForms(employeesProfileForms);
         testData();
-         initMoving(this);
+//         initMoving(this);
     }
 
     public void testData(){
@@ -122,7 +122,7 @@ public class Main extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(1366, 768));
 
-        panelMoving.setBackground(new java.awt.Color(48, 52, 129));
+        panelMoving.setBackground(new java.awt.Color(0, 51, 84));
 
         add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/icons8_Add_Male_User_Group_35px.png"))); // NOI18N
         add.setToolTipText("ADD EMPLOYEE");

@@ -343,8 +343,7 @@ public class EmployeesForm extends javax.swing.JPanel {
             Logger.getLogger(EmployeesForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
             Logger.getLogger(EmployeesForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-      
+        }   
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed

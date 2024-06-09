@@ -24,13 +24,11 @@ public class AttendanceForm extends javax.swing.JPanel {
          attendanceController.populateTodayAttendance(employeesTable);
     }
 
-    public void init(){
-        
+    public void init(){     
         employeesTable.setRowHeight(employeesTable.getRowHeight());  
           centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
   for (int i = 0; i < employeesTable.getColumnCount(); i++) {
-     
-   
+
            employeesTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
     }
            employeesTable.getTableHeader().putClientProperty(FlatClientProperties.STYLE, ""
@@ -124,7 +122,6 @@ public class AttendanceForm extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable employeesTable;

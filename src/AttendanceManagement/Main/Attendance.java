@@ -40,6 +40,8 @@ public class Attendance extends javax.swing.JFrame {
 
         setupKeyBindings();
         mainPanel.setLayout(new BorderLayout());
+          time_in_out_Form.setImage(new ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/schoolbackground.jpg")));
+          loginForm.setImage(new ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/schoolbackground.jpg")));
         showForm(time_in_out_Form);
       
     }
@@ -90,7 +92,6 @@ private void showForm(Component com){
 
         jPanel1 = new javax.swing.JPanel();
         mainPanel = new javax.swing.JPanel();
-        imageBox1 = new AttendanceManagement.Components.ImageBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -99,17 +100,15 @@ private void showForm(Component com){
 
         jPanel1.setBackground(new java.awt.Color(48, 52, 129));
 
-        imageBox1.setImage(new javax.swing.ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/schoollogo.png"))); // NOI18N
-
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(imageBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 1366, Short.MAX_VALUE)
+            .addGap(0, 1366, Short.MAX_VALUE)
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(imageBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE)
+            .addGap(0, 777, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -150,7 +149,6 @@ private void showForm(Component com){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private AttendanceManagement.Components.ImageBox imageBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel mainPanel;
     // End of variables declaration//GEN-END:variables

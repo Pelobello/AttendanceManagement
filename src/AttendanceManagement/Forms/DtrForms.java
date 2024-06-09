@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package AttendanceManagement.Forms;
 
 import AttendanceManagement.Controller.DtrController;
@@ -41,7 +38,7 @@ public class DtrForms extends javax.swing.JPanel {
     public DtrForms() {
         
         initComponents();
-//        setOpaque(false);
+        setOpaque(false);
        
         init();
         testReport();
@@ -81,7 +78,6 @@ private void year_monthDATA(){
      Calendar c = Calendar.getInstance();
     int current_year = c.get(Calendar.YEAR);
     int current_month = c.get(Calendar.MONTH); // Note: Months are 0-based (January is 0)
-
     // Clear existing items
     Year.removeAllItems();
     Month.removeAllItems();
@@ -104,10 +100,8 @@ private void year_monthDATA(){
     for (String month : months) {
         Month.addItem(month);
     }
-
     // Set the selected item to the current month
-    Month.setSelectedItem(months[current_month]);
-   
+    Month.setSelectedItem(months[current_month]);  
 }
 private void SearchEmployees(){
      int searchID = Integer.parseInt(SearchField.getText());
@@ -148,10 +142,8 @@ private void srcDtr(){
         
         
     } catch (Exception e) {
-    }
-    
+    }   
 }
-
 private void testReport(){
     try {
         ReportManager.getInstance().compileReport();
@@ -174,7 +166,6 @@ private void testReport(){
         employeesID = new javax.swing.JLabel();
         DepartMent = new javax.swing.JLabel();
         pdfBtn = new javax.swing.JButton();
-        excelBtn = new javax.swing.JButton();
         SearchField = new javax.swing.JTextField();
         Principal = new javax.swing.JTextField();
 
@@ -296,18 +287,10 @@ private void testReport(){
         );
 
         pdfBtn.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        pdfBtn.setText("Pdf");
+        pdfBtn.setText("Print Records");
         pdfBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pdfBtnActionPerformed(evt);
-            }
-        });
-
-        excelBtn.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        excelBtn.setText("Excel");
-        excelBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                excelBtnActionPerformed(evt);
             }
         });
 
@@ -344,9 +327,7 @@ private void testReport(){
                     .addComponent(jScrollPane1)
                     .addGroup(panelTableLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(excelBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pdfBtn)))
+                        .addComponent(pdfBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(16, 16, 16))
         );
         panelTableLayout.setVerticalGroup(
@@ -366,9 +347,7 @@ private void testReport(){
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pdfBtn)
-                    .addComponent(excelBtn))
+                .addComponent(pdfBtn)
                 .addContainerGap())
         );
 
@@ -419,63 +398,10 @@ private void testReport(){
     e.printStackTrace();
 }
     }
-        
-     
     }//GEN-LAST:event_pdfBtnActionPerformed
 
-    private void excelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelBtnActionPerformed
-        if (Principal.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Fill out Principal Field");
-        }else{
-              File file = showFileChooser();
-    if (file != null) {
-        try {
-            List<FieldReportAttendance> list = new ArrayList<>();
-            DefaultTableModel data = (DefaultTableModel) dtrTable.getModel();
-            
-            // Iterate through each row of the table
-            for (int i = 0; i < data.getRowCount(); i++) {
-                // Retrieve the values of each column in the current row
-                String col1 = (String) data.getValueAt(i, 0);
-                String col2 = (String) data.getValueAt(i, 1);
-                String col3 = (String) data.getValueAt(i, 2);
-                String col4 = (String) data.getValueAt(i, 3);
-                String col5 = (String) data.getValueAt(i, 4);
-                String col6 = (String) data.getValueAt(i, 5);
-                String col7 = (String) data.getValueAt(i, 6);
-                String col8 = (String) data.getValueAt(i, 7);
-                
-                // Create a new FieldReportAttendance object with the values and add it to the list
-                list.add(new FieldReportAttendance(col1, col2, col3, col4, col5, col6, col7, col8));
-            }
-            
-            int cmbtoStr = Integer.parseInt((String) Year.getSelectedItem());
-            ParamenterAttendance dataprint = new ParamenterAttendance(
-                FullName.getText(), 
-                (String) Month.getSelectedItem(), 
-                cmbtoStr, 
-                list,Principal.getText()
-            );
-
-            String pdfPath = file.getAbsolutePath();
-            if (!pdfPath.toLowerCase().endsWith(".xls")) {
-                pdfPath += ".xls";
-            }
-
-            // Export the report to a PDF file
-            ReportManager.getInstance().exportReportToExcel(dataprint, pdfPath);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }  
-        }
-        
-      
-    }//GEN-LAST:event_excelBtnActionPerformed
-
     private void YearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YearActionPerformed
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_YearActionPerformed
 
     private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed
@@ -506,7 +432,6 @@ private void testReport(){
     private javax.swing.JComboBox<String> Year;
     private javax.swing.JTable dtrTable;
     private javax.swing.JLabel employeesID;
-    private javax.swing.JButton excelBtn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelTable;

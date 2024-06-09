@@ -6,6 +6,7 @@ import AttendanceManagement.Model.ModelEmployees;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -42,8 +43,8 @@ public class EmployeesController {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String formattedDate = dateFormat.format(data.getDateAssumed());
 
-            // Convert ImageIcon to BufferedImage with white background
-            BufferedImage bufferedImage = createBufferedImageWithWhiteBackground((ImageIcon) data.getEmployeesImage());
+            // Directly use the image without adding a white background
+            BufferedImage bufferedImage = convertImageIconToBufferedImage((ImageIcon) data.getEmployeesImage());
 
             // Convert to base64 string
             String base64Image = encodeImageToBase64(bufferedImage);
@@ -64,7 +65,6 @@ public class EmployeesController {
 
                     ps.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Successfully Added");
-//                     GlassPanePopup.closePopupAll();
                 }
             }
         } catch (SQLException e) {
@@ -78,26 +78,24 @@ public class EmployeesController {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String formattedDate = dateFormat.format(data.getDateAssumed());
 
-            BufferedImage bufferedImage = createBufferedImageWithWhiteBackground((ImageIcon) data.getEmployeesImage());
+            BufferedImage bufferedImage = convertImageIconToBufferedImage((ImageIcon) data.getEmployeesImage());
             String base64Image = encodeImageToBase64(bufferedImage);
 
-            
-                try (PreparedStatement ps = prepareStatement(sql)) {
-                    if (ps != null) {
-                        ps.setInt(1, data.getId());
-                        ps.setString(2, data.getFirstName());
-                        ps.setString(3, data.getMiddleName());
-                        ps.setString(4, data.getLastName());
-                        ps.setString(5, data.getPosition());
-                        ps.setString(6, data.getDepartment());
-                        ps.setDate(7, java.sql.Date.valueOf(formattedDate));
-                        ps.setInt(8, data.getPlantillaNumber());
-                        ps.setString(9, base64Image);
-                        ps.setInt(10, data.getIdData());
+            try (PreparedStatement ps = prepareStatement(sql)) {
+                if (ps != null) {
+                    ps.setInt(1, data.getId());
+                    ps.setString(2, data.getFirstName());
+                    ps.setString(3, data.getMiddleName());
+                    ps.setString(4, data.getLastName());
+                    ps.setString(5, data.getPosition());
+                    ps.setString(6, data.getDepartment());
+                    ps.setDate(7, java.sql.Date.valueOf(formattedDate));
+                    ps.setInt(8, data.getPlantillaNumber());
+                    ps.setString(9, base64Image);
+                    ps.setInt(10, data.getIdData());
 
-                        ps.executeUpdate();
-                        JOptionPane.showMessageDialog(null, "Successfully Updated!");
-                    
+                    ps.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Successfully Updated!");
                 }
             }
         } catch (SQLException | IOException e) {
@@ -130,25 +128,29 @@ public class EmployeesController {
             return false;
         }
     }
-    public ModelEmployees SearchEmployees(int EmployeesID){
+
+    public ModelEmployees SearchEmployees(int EmployeesID) {
         try {
             String sql = "SELECT * FROM employees_data WHERE IDnumber = ? AND DateDeleted IS NULL";
-           ps = getConnection().prepareStatement(sql);
-           ps.setInt(1, EmployeesID);
+            ps = getConnection().prepareStatement(sql);
+            ps.setInt(1, EmployeesID);
             rs = ps.executeQuery();
-    
+
             if (rs.next()) {
-                 String base64Image = rs.getString("EmployeesImage");
+                String base64Image = rs.getString("EmployeesImage");
                 byte[] imageData = Base64.getDecoder().decode(base64Image);
 
                 BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageData));
-                BufferedImage imageWithWhiteBackground = createBufferedImageWithWhiteBackground(bufferedImage);
+                ImageIcon imageIcon = new ImageIcon(bufferedImage);
 
-                ImageIcon whiteBackgroundIcon = new ImageIcon(imageWithWhiteBackground);         
-                ModelEmployees employeesProfile = new ModelEmployees( rs.getInt("IDnumber"),  rs.getString("FirstName"),  rs.getString("MiddleName"), rs.getString("LastName"),rs.getString("Position"),rs.getString("Department"),rs.getDate("DateAssumed"),rs.getInt("PlantillaNumber"),whiteBackgroundIcon);
+                ModelEmployees employeesProfile = new ModelEmployees(
+                        rs.getInt("IDnumber"), rs.getString("FirstName"),
+                        rs.getString("MiddleName"), rs.getString("LastName"),
+                        rs.getString("Position"), rs.getString("Department"),
+                        rs.getDate("DateAssumed"), rs.getInt("PlantillaNumber"), imageIcon);
                 employeesProfile.setIdData(rs.getInt("ID"));
                 return employeesProfile;
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Invalid ID!");
             }
         } catch (Exception e) {
@@ -156,6 +158,7 @@ public class EmployeesController {
         }
         return null;
     }
+
     public void populateEmployeesProfile() {
         String sql = "SELECT * FROM employees_data WHERE DateDeleted IS NULL";
         try (PreparedStatement ps = getConnection().prepareStatement(sql);
@@ -166,10 +169,13 @@ public class EmployeesController {
                 byte[] imageData = Base64.getDecoder().decode(base64Image);
 
                 BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageData));
-                BufferedImage imageWithWhiteBackground = createBufferedImageWithWhiteBackground(bufferedImage);
+                ImageIcon imageIcon = new ImageIcon(bufferedImage);
 
-                ImageIcon whiteBackgroundIcon = new ImageIcon(imageWithWhiteBackground);         
-                ModelEmployees employeesProfile = new ModelEmployees( rs.getInt("IDnumber"),  rs.getString("FirstName"),  rs.getString("MiddleName"), rs.getString("LastName"),rs.getString("Position"),rs.getString("Department"),rs.getDate("DateAssumed"),rs.getInt("PlantillaNumber"),whiteBackgroundIcon);
+                ModelEmployees employeesProfile = new ModelEmployees(
+                        rs.getInt("IDnumber"), rs.getString("FirstName"),
+                        rs.getString("MiddleName"), rs.getString("LastName"),
+                        rs.getString("Position"), rs.getString("Department"),
+                        rs.getDate("DateAssumed"), rs.getInt("PlantillaNumber"), imageIcon);
                 employeesProfile.setIdData(rs.getInt("ID"));
                 employeesProfileForms.addEmployees(employeesProfile);
             }
@@ -177,37 +183,29 @@ public class EmployeesController {
             e.printStackTrace();
         }
     }
-    private boolean isNumeric(String str) {
-    if (str == null) {
-        return false;
-    }
-    try {
-        Integer.parseInt(str);
-    } catch (NumberFormatException e) {
-        return false;
-    }
-    return true;
-}
-       public void searchEmployeesProfile(String Search) {
-           
+
+    public void searchEmployeesProfile(String Search) {
         String sql = "SELECT * FROM employees_data WHERE DateDeleted IS NULL  AND (IDnumber LIKE ? or FirstName LIKE ? or LastName LIKE ?)";
         try {
-            
-      ps = prepareStatement(sql);
-       String searchPattern = "%" + Search + "%";
-        ps.setString(1, searchPattern);
-        ps.setString(2, searchPattern);
-        ps.setString(3, searchPattern);
-                rs =  ps.executeQuery();
+            ps = prepareStatement(sql);
+            String searchPattern = "%" + Search + "%";
+            ps.setString(1, searchPattern);
+            ps.setString(2, searchPattern);
+            ps.setString(3, searchPattern);
+            rs = ps.executeQuery();
+
             while (rs.next()) {
                 String base64Image = rs.getString("EmployeesImage");
                 byte[] imageData = Base64.getDecoder().decode(base64Image);
 
                 BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageData));
-                BufferedImage imageWithWhiteBackground = createBufferedImageWithWhiteBackground(bufferedImage);
+                ImageIcon imageIcon = new ImageIcon(bufferedImage);
 
-                ImageIcon whiteBackgroundIcon = new ImageIcon(imageWithWhiteBackground);         
-                ModelEmployees employeesProfile = new ModelEmployees( rs.getInt("IDnumber"),  rs.getString("FirstName"),  rs.getString("MiddleName"), rs.getString("LastName"),rs.getString("Position"),rs.getString("Department"),rs.getDate("DateAssumed"),rs.getInt("PlantillaNumber"),whiteBackgroundIcon);
+                ModelEmployees employeesProfile = new ModelEmployees(
+                        rs.getInt("IDnumber"), rs.getString("FirstName"),
+                        rs.getString("MiddleName"), rs.getString("LastName"),
+                        rs.getString("Position"), rs.getString("Department"),
+                        rs.getDate("DateAssumed"), rs.getInt("PlantillaNumber"), imageIcon);
                 employeesProfile.setIdData(rs.getInt("ID"));
                 employeesProfileForms.addEmployees(employeesProfile);
             }
@@ -238,34 +236,22 @@ public class EmployeesController {
         return null;
     }
 
-    private BufferedImage createBufferedImageWithWhiteBackground(ImageIcon imageIcon) {
+    private BufferedImage convertImageIconToBufferedImage(ImageIcon imageIcon) {
+        Image image = imageIcon.getImage();
         BufferedImage bufferedImage = new BufferedImage(
                 imageIcon.getIconWidth(),
                 imageIcon.getIconHeight(),
-                BufferedImage.TYPE_INT_RGB
+                BufferedImage.TYPE_INT_ARGB // Use ARGB to preserve transparency
         );
         Graphics2D g2d = bufferedImage.createGraphics();
-        g2d.setColor(Color.WHITE);
-        g2d.fillRect(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight());
-        g2d.drawImage(imageIcon.getImage(), 0, 0, null);
+        g2d.drawImage(image, 0, 0, null);
         g2d.dispose();
         return bufferedImage;
     }
 
-    private BufferedImage createBufferedImageWithWhiteBackground(BufferedImage bufferedImage) {
-        BufferedImage imageWithWhiteBackground = new BufferedImage(
-                bufferedImage.getWidth(), bufferedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2d = imageWithWhiteBackground.createGraphics();
-        g2d.setColor(Color.WHITE);
-        g2d.fillRect(0, 0, imageWithWhiteBackground.getWidth(), imageWithWhiteBackground.getHeight());
-        g2d.drawImage(bufferedImage, 0, 0, null);
-        g2d.dispose();
-        return imageWithWhiteBackground;
-    }
-
     private String encodeImageToBase64(BufferedImage bufferedImage) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, "jpg", baos);
+        ImageIO.write(bufferedImage, "png", baos); // Use PNG to preserve transparency
         byte[] imageInByte = baos.toByteArray();
         return Base64.getEncoder().encodeToString(imageInByte);
     }

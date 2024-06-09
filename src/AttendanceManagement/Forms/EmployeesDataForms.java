@@ -43,9 +43,7 @@ public class EmployeesDataForms extends javax.swing.JPanel {
           centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
               for (int i = 0; i < employeesTable.getColumnCount(); i++) {
             employeesTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-        }
-              
-             
+        }    
            employeesTable.getTableHeader().putClientProperty(FlatClientProperties.STYLE, ""
                 + "height:30;"
                 + "font:bold;"
@@ -220,7 +218,7 @@ public class EmployeesDataForms extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_searchingKeyReleased
 private String getStringValue(Object value) {
-    return (value != null) ? value.toString() : "";
+    return value == null ? "" : value.toString();
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

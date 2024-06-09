@@ -14,12 +14,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 import raven.glasspanepopup.GlassPanePopup;
 
-
-
-
 public class EmployeesProfileForms extends javax.swing.JPanel {
 
-    
     public EventItem getEventItem() {
         return eventItem;
     }
@@ -33,8 +29,7 @@ private EmployeesController employeesController = new EmployeesController(this);
     public EmployeesProfileForms() {
         initComponents();
         setOpaque(false);
-       init();
-        
+       init();        
     }
     private void init(){
           jPanel1.putClientProperty(FlatClientProperties.STYLE, ""
@@ -42,13 +37,7 @@ private EmployeesController employeesController = new EmployeesController(this);
                 + "");
                   Search.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search...");
            Search.putClientProperty(FlatClientProperties.TEXT_FIELD_TRAILING_ICON, new FlatSVGIcon("AttendanceManagement/Images_Icons/search.svg"));
-//          Search.putClientProperty(FlatClientProperties.STYLE, ""
-//                + "arc:15;"
-//                + "borderWidth:0;"
-//                + "focusWidth:0;"
-//                + "innerFocusWidth:0;"
-//                + "margin:5,20,5,20;"
-//                + "background:$Panel.background");
+
     }
     public void addEmployees(ModelEmployees data){
         EmployeesItem employeesItem = new EmployeesItem();
