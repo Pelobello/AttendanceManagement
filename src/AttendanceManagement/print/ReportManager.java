@@ -3,6 +3,8 @@ package AttendanceManagement.print;
 
 import AttendanceManagement.ModelRecords.ParamenterAttendance;
 import AttendanceManagement.ModelRecords.ParameterEmployee;
+import java.lang.System.Logger.Level;
+
 import java.util.HashMap;
 import java.util.Map;
 import net.sf.jasperreports.engine.JRException;
@@ -17,9 +19,11 @@ import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsReportConfiguration;
 import net.sf.jasperreports.view.JasperViewer;
+import org.apache.log4j.Logger;
 
 
 public class ReportManager {
+     private static final Logger logger = Logger.getLogger(ReportManager.class);
 private static ReportManager instance;
 private JasperReport jReport;
 private JasperReport teachersReport;
@@ -32,12 +36,15 @@ public static ReportManager getInstance(){
     
 }
 
-
+  static {
+        Logger.getRootLogger().setLevel(org.apache.log4j.Level.OFF);
+    }
     private ReportManager() {
         
         
     }
     public void compileReport()throws JRException{
+       
         jReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/AttendanceManagement/print/AttendanceReport.jrxml"));
         teachersReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/AttendanceManagement/print/TeachersReport.jrxml"));
     }

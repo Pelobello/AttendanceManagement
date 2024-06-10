@@ -86,7 +86,7 @@ public class EmployeesItem extends javax.swing.JPanel {
 
         panel.setBackground(new java.awt.Color(255, 255, 255));
 
-        profileImage.setImage(new javax.swing.ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/sampleEmployeesImage.jpg"))); // NOI18N
+        profileImage.setImage(new javax.swing.ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/profile.png"))); // NOI18N
 
         firstName.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         firstName.setForeground(new java.awt.Color(51, 51, 51));

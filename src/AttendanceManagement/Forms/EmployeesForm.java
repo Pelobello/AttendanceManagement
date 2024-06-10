@@ -151,10 +151,10 @@ public class EmployeesForm extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         employeesImage.setBackground(new java.awt.Color(255, 255, 255));
-        employeesImage.setImage(new javax.swing.ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/profile-png.jpg"))); // NOI18N
+        employeesImage.setImage(new javax.swing.ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/profile.png"))); // NOI18N
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Drag Here ↑");
@@ -336,6 +336,7 @@ public class EmployeesForm extends javax.swing.JPanel {
        
         try {
             AddEmployees();
+            textFieldtoNone();
             } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Invalid EmployeesID or Plantilla Item. Please enter a valid number.");
         

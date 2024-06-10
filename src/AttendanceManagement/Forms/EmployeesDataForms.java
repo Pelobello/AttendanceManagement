@@ -123,6 +123,7 @@ public class EmployeesDataForms extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        employeesTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         employeesTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 employeesTableMouseClicked(evt);

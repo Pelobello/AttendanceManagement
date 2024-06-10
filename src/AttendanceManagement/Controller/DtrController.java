@@ -23,10 +23,22 @@ public class DtrController {
   public void populateDtr(JTable table, ModelDtr data) {
         String sql = "SELECT \n" +
 "    ROW_NUMBER() OVER () AS Day,\n" +
-"    DATE_FORMAT(ad.AmTimeIn, '%l:%i %p') AS AmTimeIn,\n" +
-"    DATE_FORMAT(ad.AmTimeOut, '%l:%i %p') AS AmTimeOut,\n" +
-"    DATE_FORMAT(ad.PmTimeIn, '%l:%i %p') AS PmTimeIn,\n" +
-"    DATE_FORMAT(ad.PmTimeOut, '%l:%i %p') AS PmTimeOut,\n" +
+"    CASE \n" +
+"        WHEN ad.AmTimeIn IS NULL THEN ''\n" +
+"        ELSE DATE_FORMAT(ad.AmTimeIn, '%l:%i %p') \n" +
+"    END AS AmTimeIn,\n" +
+"    CASE \n" +
+"        WHEN ad.AmTimeOut IS NULL THEN ''\n" +
+"        ELSE DATE_FORMAT(ad.AmTimeOut, '%l:%i %p') \n" +
+"    END AS AmTimeOut,\n" +
+"    CASE \n" +
+"        WHEN ad.PmTimeIn IS NULL THEN ''\n" +
+"        ELSE DATE_FORMAT(ad.PmTimeIn, '%l:%i %p') \n" +
+"    END AS PmTimeIn,\n" +
+"    CASE \n" +
+"        WHEN ad.PmTimeOut IS NULL THEN ''\n" +
+"        ELSE DATE_FORMAT(ad.PmTimeOut, '%l:%i %p') \n" +
+"    END AS PmTimeOut,\n" +
 "    IFNULL(TIMEDIFF(ad.AmTimeOut, ad.AmTimeIn), '00:00:00') AS TotalAmWorkHours,\n" +
 "    IFNULL(TIMEDIFF(ad.PmTimeOut, ad.PmTimeIn), '00:00:00') AS TotalPmWorkHours,\n" +
 "    SEC_TO_TIME(\n" +

@@ -68,7 +68,7 @@
         <Container class="AttendanceManagement.Components.ImageBox" name="profileImage">
           <Properties>
             <Property name="image" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/AttendanceManagement/Images_Icons/sampleEmployeesImage.jpg"/>
+              <Image iconType="3" name="/AttendanceManagement/Images_Icons/profile.png"/>
             </Property>
           </Properties>
 
