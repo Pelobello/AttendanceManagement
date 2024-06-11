@@ -115,6 +115,16 @@ public class EmployeesController {
             e.printStackTrace();
         }
     }
+    public void deleteEmployeesDtrData(ModelEmployees data){
+        try {
+            String sql = "UPDATE attendance_data SET DateDeleted = CURRENT_DATE, DateUpdated = CURRENT_DATE WHERE EmployeesID = ?";
+            ps = prepareStatement(sql);
+            ps.setInt(1, data.getId());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public boolean existingEmployee(ModelEmployees data) {
         String sql = "SELECT IDnumber FROM employees_data WHERE IDnumber = ? AND DateDeleted IS NULL";

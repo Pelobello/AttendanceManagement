@@ -25,19 +25,19 @@ public class DtrController {
 "    ROW_NUMBER() OVER () AS Day,\n" +
 "    CASE \n" +
 "        WHEN ad.AmTimeIn IS NULL THEN ''\n" +
-"        ELSE DATE_FORMAT(ad.AmTimeIn, '%l:%i %p') \n" +
+"        ELSE DATE_FORMAT(ad.AmTimeIn, '%l:%i %p')\n" +
 "    END AS AmTimeIn,\n" +
 "    CASE \n" +
 "        WHEN ad.AmTimeOut IS NULL THEN ''\n" +
-"        ELSE DATE_FORMAT(ad.AmTimeOut, '%l:%i %p') \n" +
+"        ELSE DATE_FORMAT(ad.AmTimeOut, '%l:%i %p')\n" +
 "    END AS AmTimeOut,\n" +
 "    CASE \n" +
 "        WHEN ad.PmTimeIn IS NULL THEN ''\n" +
-"        ELSE DATE_FORMAT(ad.PmTimeIn, '%l:%i %p') \n" +
+"        ELSE DATE_FORMAT(ad.PmTimeIn, '%l:%i %p')\n" +
 "    END AS PmTimeIn,\n" +
 "    CASE \n" +
 "        WHEN ad.PmTimeOut IS NULL THEN ''\n" +
-"        ELSE DATE_FORMAT(ad.PmTimeOut, '%l:%i %p') \n" +
+"        ELSE DATE_FORMAT(ad.PmTimeOut, '%l:%i %p')\n" +
 "    END AS PmTimeOut,\n" +
 "    IFNULL(TIMEDIFF(ad.AmTimeOut, ad.AmTimeIn), '00:00:00') AS TotalAmWorkHours,\n" +
 "    IFNULL(TIMEDIFF(ad.PmTimeOut, ad.PmTimeIn), '00:00:00') AS TotalPmWorkHours,\n" +
@@ -86,11 +86,13 @@ public class DtrController {
 "        '00:00:00'\n" +
 "    ) AS OverTime\n" +
 "FROM \n" +
-"    attendance_management_db.attendance_data ad\n" +
+"   attendance_data ad\n" +
 "WHERE \n" +
 "    ad.EmployeesID = ?\n" +
 "    AND MONTHNAME(ad.DateCreated) = ?\n" +
 "    AND YEAR(ad.DateCreated) = ?\n" +
+"    AND ad.DateDeleted IS NULL  \n" +
+                
 "\n" +
 "UNION ALL\n" +
 "\n" +
@@ -148,7 +150,8 @@ public class DtrController {
 "WHERE \n" +
 "    ad.EmployeesID = ?\n" +
 "    AND MONTHNAME(ad.DateCreated) = ?\n" +
-"    AND YEAR(ad.DateCreated) = ?;";
+"    AND YEAR(ad.DateCreated) = ?\n" +
+"    AND ad.DateDeleted IS NULL";
 
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);

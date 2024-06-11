@@ -8,9 +8,7 @@ import javax.swing.Icon;
 
 public class ModelEmployees {
 
-    /**
-     * @return the idData
-     */
+  
     public int getIdData() {
         return idData;
     }
@@ -123,5 +121,6 @@ public class ModelEmployees {
     private Date dateAssumed;
     private int plantillaNumber;
     private Icon employeesImage;
+
     
 }

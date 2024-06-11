@@ -139,6 +139,7 @@ private void showForm(Component com){
 
    
     public static void main(String args[]) {
+       
         FlatIntelliJLaf.registerCustomDefaultsSource("AttendanceManagement/StyleProperties");
         FlatIntelliJLaf.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {

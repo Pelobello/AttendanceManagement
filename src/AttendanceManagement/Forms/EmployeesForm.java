@@ -5,9 +5,11 @@ import AttendanceManagement.Controller.EmployeesController;
 import AttendanceManagement.Main.Main;
 import AttendanceManagement.Model.ModelEmployees;
 import com.formdev.flatlaf.FlatClientProperties;
+import com.kitfox.svg.A;
 import com.raven.datechooser.DateChooser;
 import java.awt.Color;
 import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.DateFormat;
@@ -20,6 +22,9 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import raven.glasspanepopup.GlassPanePopup;
 import java.text.SimpleDateFormat;
+import javax.swing.Icon;
+import javax.swing.SwingUtilities;
+import jnafilechooser.api.JnaFileChooser;
 
 
 public class EmployeesForm extends javax.swing.JPanel {
@@ -52,6 +57,8 @@ public class EmployeesForm extends javax.swing.JPanel {
         FamilyName.setText("");
         position.setText("");
         plantillaItem.setText("");
+          Icon profileImage = new ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/profile.png"));
+        employeesImage.setImage(profileImage);
     }
    private boolean TxtFieldData() {
     if (employeeID.getText().isEmpty() || firstName.getText().isEmpty() || FamilyName.getText().isEmpty() ||
@@ -70,11 +77,12 @@ public class EmployeesForm extends javax.swing.JPanel {
                 java.util.Date dateData = dateFormat.parse(dateAssumed.getText());
                 java.sql.Date sqlDate = new java.sql.Date(dateData.getTime());
                 int sqlId = Integer.parseInt(id.getText());
-
                 // Add employee
                 ModelEmployees UpdateEmployees = new ModelEmployees(employeeId, firstName.getText(), middleName.getText(),FamilyName.getText(), position.getText(), (String) department.getSelectedItem(),sqlDate,plantillaNumber,
                     employeesImage.getImage());
                 UpdateEmployees.setIdData(sqlId);
+           
+               
         return UpdateEmployees;
              
    }
@@ -110,11 +118,14 @@ public class EmployeesForm extends javax.swing.JPanel {
    }
         private void DeleteEmployees(){
         int sqlId = Integer.parseInt(id.getText());
+        int employeesID = Integer.parseInt(employeeIDlbl.getText());
         modelEmployees.setIdData(sqlId);
+        modelEmployees.setId(employeesID);
         if (TxtFieldData()) {
             // Show confirmation dialog
             if (Confirmation()) {
                 employeesController.deleteEmployeesData(modelEmployees);
+                employeesController.deleteEmployeesDtrData(modelEmployees);
                 GlassPanePopup.closePopupAll();
                 main.testData();
                 employeesRecords.loadData();
@@ -129,6 +140,8 @@ public class EmployeesForm extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         employeesImage = new AttendanceManagement.Components.PictureBox();
         jLabel1 = new javax.swing.JLabel();
+        browseImage = new javax.swing.JLabel();
+        Deleteimage = new javax.swing.JLabel();
         employeeID = new AttendanceManagement.Components.TextField();
         firstName = new AttendanceManagement.Components.TextField();
         middleName = new AttendanceManagement.Components.TextField();
@@ -142,6 +155,7 @@ public class EmployeesForm extends javax.swing.JPanel {
         deleteBtn = new javax.swing.JButton();
         id = new javax.swing.JLabel();
         department = new javax.swing.JComboBox<>();
+        employeeIDlbl = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setOpaque(false);
@@ -159,17 +173,50 @@ public class EmployeesForm extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Drag Here ↑");
 
+        browseImage.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        browseImage.setText("BrowsImage");
+        browseImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        browseImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                browseImageMouseClicked(evt);
+            }
+        });
+
+        Deleteimage.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Deleteimage.setForeground(new java.awt.Color(153, 0, 0));
+        Deleteimage.setText("Delete Image");
+        Deleteimage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Deleteimage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DeleteimageMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-            .addComponent(employeesImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(browseImage, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Deleteimage))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(employeesImage, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(employeesImage, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(browseImage)
+                    .addComponent(Deleteimage))
+                .addGap(8, 8, 8)
+                .addComponent(employeesImage, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1))
         );
@@ -263,6 +310,8 @@ public class EmployeesForm extends javax.swing.JPanel {
         department.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
         department.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "JHS", "SHS", "NTP" }));
 
+        employeeIDlbl.setText("0");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -270,13 +319,14 @@ public class EmployeesForm extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(employeeID, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(firstName, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(middleName, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(FamilyName, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(employeeIDlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(position, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
@@ -317,7 +367,9 @@ public class EmployeesForm extends javax.swing.JPanel {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(employeeIDlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -364,14 +416,32 @@ public class EmployeesForm extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_updateBtnActionPerformed
 
+    private void browseImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseImageMouseClicked
+     JnaFileChooser ch = new JnaFileChooser();
+     ch.addFilter("Image", "png","jpg");
+     boolean act = ch.showOpenDialog(SwingUtilities.getWindowAncestor(this));
+        if (act) {
+            File file = ch.getSelectedFile();
+            employeesImage.setImage(new ImageIcon(file.getAbsolutePath()));
+        }
+    }//GEN-LAST:event_browseImageMouseClicked
+
+    private void DeleteimageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteimageMouseClicked
+        Icon profileImage = new ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/profile.png"));
+        employeesImage.setImage(profileImage);
+    }//GEN-LAST:event_DeleteimageMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Deleteimage;
     public AttendanceManagement.Components.TextField FamilyName;
     public javax.swing.JButton addBtn;
+    private javax.swing.JLabel browseImage;
     public AttendanceManagement.Components.TextField dateAssumed;
     public javax.swing.JButton deleteBtn;
     public javax.swing.JComboBox<String> department;
     public AttendanceManagement.Components.TextField employeeID;
+    public javax.swing.JLabel employeeIDlbl;
     public AttendanceManagement.Components.PictureBox employeesImage;
     public AttendanceManagement.Components.TextField firstName;
     public javax.swing.JLabel id;

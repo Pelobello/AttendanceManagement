@@ -89,7 +89,7 @@
                       <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="463" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="460" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="pdfBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -108,7 +108,7 @@
             <Component class="javax.swing.JTable" name="dtrTable">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="16" style="0"/>
+                  <Font name="Segoe UI" size="16" style="1"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="8" rowCount="25">
@@ -231,7 +231,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace pref="80" max="32767" attributes="0"/>
+                      <EmptySpace pref="122" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="DepartMent" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
                           <Component id="FullName" alignment="1" min="-2" pref="192" max="-2" attributes="0"/>
@@ -239,16 +239,17 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="EmployeesImage" min="-2" pref="148" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="EmployeesImage" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="EmployeesImage" alignment="1" min="-2" pref="147" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="FullName" min="-2" pref="43" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="employeesID" min="-2" pref="43" max="-2" attributes="0"/>
@@ -256,7 +257,6 @@
                               <Component id="DepartMent" min="-2" pref="49" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -265,7 +265,7 @@
             <Container class="AttendanceManagement.Components.ImageBox" name="EmployeesImage">
               <Properties>
                 <Property name="image" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/AttendanceManagement/Images_Icons/profile-png.jpg"/>
+                  <Image iconType="3" name="/AttendanceManagement/Images_Icons/profile.png"/>
                 </Property>
               </Properties>
 
@@ -282,6 +282,7 @@
                   <Color blue="66" green="66" red="66" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
+                <Property name="text" type="java.lang.String" value="Juan Dela Cruz"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="employeesID">
@@ -293,6 +294,7 @@
                   <Color blue="66" green="66" red="66" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
+                <Property name="text" type="java.lang.String" value="123456"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="DepartMent">
@@ -304,6 +306,7 @@
                   <Color blue="66" green="66" red="66" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
+                <Property name="text" type="java.lang.String" value="SHS"/>
               </Properties>
             </Component>
           </SubComponents>

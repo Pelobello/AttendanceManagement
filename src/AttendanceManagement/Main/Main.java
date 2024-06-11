@@ -47,7 +47,7 @@ public class Main extends javax.swing.JFrame {
    private AttendanceController attendanceController = new AttendanceController();
     public Main() {
         initComponents();
-        setExtendedState(Main.MAXIMIZED_BOTH);
+//        setExtendedState(Main.MAXIMIZED_BOTH);
          
         GlassPanePopup.install(this);
       
@@ -80,7 +80,7 @@ public class Main extends javax.swing.JFrame {
                 employeesForm.plantillaItem.setText(PlantillaInfo);
                 employeesForm.dateAssumed.setText(dateIssuedStr);
                 employeesForm.employeesImage.setImage(item.getEmployeesImage());
-           
+                employeesForm.employeeIDlbl.setText(empID);
                 GlassPanePopup.showPopup(employeesForm);
             }
         });

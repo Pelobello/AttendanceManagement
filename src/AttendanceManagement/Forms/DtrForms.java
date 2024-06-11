@@ -11,18 +11,26 @@ import AttendanceManagement.ModelRecords.ParamenterAttendance;
 import AttendanceManagement.print.ReportManager;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
 /**
@@ -33,7 +41,7 @@ public class DtrForms extends javax.swing.JPanel {
 
     private EmployeesController employeesController = new EmployeesController();
     private DtrController dtrController = new DtrController();
-    private DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+   
    
     public DtrForms() {
         
@@ -46,11 +54,7 @@ public class DtrForms extends javax.swing.JPanel {
        
     }
 private void init(){
-                  centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-              for (int i = 0; i < dtrTable.getColumnCount(); i++) {
-            dtrTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-        }
-    
+
         panelTable.putClientProperty(FlatClientProperties.STYLE, ""
                 + "arc:10;"
                 + "");
@@ -72,8 +76,68 @@ private void init(){
            SearchField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Employee's ID");
            Principal.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Principal's Full Name");
            SearchField.putClientProperty(FlatClientProperties.TEXT_FIELD_TRAILING_ICON, new FlatSVGIcon("AttendanceManagement/Images_Icons/search.svg"));
-         
+        
 }
+
+private TableCellRenderer getAlignmentCellRenderer(TableCellRenderer oldRender, boolean header) {
+    return new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component com = oldRender.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            if (com instanceof JLabel) {
+                JLabel label = (JLabel) com;
+                label.setForeground(Color.BLACK); // default color
+
+                setAlignment(label, column);
+
+                if (!header) {
+                    if (column == 1) {
+                        try {
+                            Date cellTime = parseTime(value.toString());
+                            Color color = getThresholdColor(cellTime);
+                            label.setForeground(color);
+                        } catch (ParseException e) {
+                            label.setForeground(Color.BLACK); // default color
+                        }
+                    }
+                }
+            }
+            return com;
+        }
+    };
+            }
+
+  private void setAlignment(JLabel label, int column) {
+            if (column == 0 || column == 7 || column == 3 || column == 6) {
+                label.setHorizontalAlignment(SwingConstants.CENTER);
+            } else {
+                label.setHorizontalAlignment(SwingConstants.CENTER);
+            }
+        }
+
+        private Date parseTime(String time) throws ParseException {
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+            return sdf.parse(time);
+        }
+
+        private Color getThresholdColor(Date cellTime) throws ParseException {
+            Date thresholdTime;
+            if (DepartMent.getText().equals("JHS") || DepartMent.getText().equals("SHS")) {
+                thresholdTime = parseTime("7:30 AM");
+            } else if (DepartMent.getText().equals("NTP")) {
+                thresholdTime = parseTime("8:00 AM");
+            } else {
+                throw new RuntimeException("Unknown department");
+            }
+
+            if (cellTime.before(thresholdTime) || cellTime.equals(thresholdTime)) {
+                return new Color(17, 182, 62); // green color
+            } else {
+                return Color.RED; // red color
+            }
+        }
+ 
+
 private void year_monthDATA(){
      Calendar c = Calendar.getInstance();
     int current_year = c.get(Calendar.YEAR);
@@ -139,7 +203,8 @@ private void srcDtr(){
       ModelDtr modelDtr = new ModelDtr(empIDstr, (String) Month.getSelectedItem(), yearStr);
     try {
         dtrController.populateDtr(dtrTable, modelDtr);
-        
+         dtrTable.getTableHeader().setDefaultRenderer(getAlignmentCellRenderer(dtrTable.getTableHeader().getDefaultRenderer(), true));
+         dtrTable.setDefaultRenderer(Object.class,getAlignmentCellRenderer(dtrTable.getDefaultRenderer(Object.class), false));
         
     } catch (Exception e) {
     }   
@@ -173,7 +238,7 @@ private void testReport(){
 
         panelTable.setBackground(new java.awt.Color(255, 255, 255));
 
-        dtrTable.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        dtrTable.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         dtrTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -245,46 +310,49 @@ private void testReport(){
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        EmployeesImage.setImage(new javax.swing.ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/profile-png.jpg"))); // NOI18N
+        EmployeesImage.setImage(new javax.swing.ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/profile.png"))); // NOI18N
 
         FullName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         FullName.setForeground(new java.awt.Color(102, 102, 102));
         FullName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        FullName.setText("Juan Dela Cruz");
 
         employeesID.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         employeesID.setForeground(new java.awt.Color(102, 102, 102));
         employeesID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        employeesID.setText("123456");
 
         DepartMent.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         DepartMent.setForeground(new java.awt.Color(102, 102, 102));
         DepartMent.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        DepartMent.setText("SHS");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(80, Short.MAX_VALUE)
+                .addContainerGap(122, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DepartMent, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(FullName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(employeesID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EmployeesImage, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(EmployeesImage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(EmployeesImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(FullName, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(employeesID, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DepartMent, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 3, Short.MAX_VALUE))
+                        .addComponent(DepartMent, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         pdfBtn.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -346,7 +414,7 @@ private void testReport(){
                             .addComponent(Year, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pdfBtn)
                 .addContainerGap())
