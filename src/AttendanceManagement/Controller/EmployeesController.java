@@ -2,6 +2,7 @@ package AttendanceManagement.Controller;
 
 import AttendanceManagement.Forms.EmployeesProfileForms;
 import AttendanceManagement.JDBC.DatabaseConnection;
+import AttendanceManagement.Model.ModelAttendance;
 import AttendanceManagement.Model.ModelEmployees;
 
 import java.awt.Color;
@@ -81,8 +82,9 @@ public class EmployeesController {
             BufferedImage bufferedImage = convertImageIconToBufferedImage((ImageIcon) data.getEmployeesImage());
             String base64Image = encodeImageToBase64(bufferedImage);
 
-            try (PreparedStatement ps = prepareStatement(sql)) {
-                if (ps != null) {
+             ps = prepareStatement(sql);
+            
+                 if (ps != null) {
                     ps.setInt(1, data.getId());
                     ps.setString(2, data.getFirstName());
                     ps.setString(3, data.getMiddleName());
@@ -96,10 +98,35 @@ public class EmployeesController {
 
                     ps.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Successfully Updated!");
-                }
-            }
+                
+             }
+                
+            
         } catch (SQLException | IOException e) {
             e.printStackTrace();
+        }
+    }
+    public void updateEmployeesDtrData(ModelAttendance data){
+        try {
+            String sql = "UPDATE attendance_data SET EmployeesImage = ?, Department = ?, EmployeesID = ?,EmployeesFullName = ? WHERE EmployeesID = ?";
+            BufferedImage bufferedImage = convertImageIconToBufferedImage((ImageIcon) data.getEmployeesImage());
+            String base64Image = encodeImageToBase64(bufferedImage);
+            ps = prepareStatement(sql);
+            
+           
+                if (ps!=null) {
+                ps.setString(1, base64Image);
+                ps.setString(2, data.getDepartment());
+                ps.setInt(3, data.getEmployeesID());
+                ps.setString(4, data.getEmployeesFullName());
+                ps.setInt(5, data.getPastEmpID());
+  
+                ps.executeUpdate();
+            }
+            
+ 
+        } catch (Exception e) {
+        e.printStackTrace();
         }
     }
 
@@ -130,6 +157,18 @@ public class EmployeesController {
         String sql = "SELECT IDnumber FROM employees_data WHERE IDnumber = ? AND DateDeleted IS NULL";
         try (PreparedStatement ps = prepareStatement(sql)) {
             ps.setInt(1, data.getId());
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+     public boolean existingEmployeeDTR(ModelAttendance data) {
+        String sql = "SELECT EmployeesID FROM attendance_data WHERE EmployeesID = ? AND DateDeleted IS NULL";
+        try (PreparedStatement ps = prepareStatement(sql)) {
+            ps.setInt(1, data.getEmployeesID());
             try (ResultSet rs = ps.executeQuery()) {
                 return rs.next();
             }

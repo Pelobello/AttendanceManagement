@@ -230,17 +230,30 @@ public void UpdateData(ModelAttendance data){
         }
     }
 
-    private ImageIcon base64ToImageIcon(String base64String, int width, int height) {
-        try {
-            byte[] imageBytes = Base64.getDecoder().decode(base64String);
-            BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageBytes));
-            Image scaledImage = bufferedImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-            return new ImageIcon(scaledImage);
-        } catch (IOException e) {
-            e.printStackTrace();
+  private ImageIcon base64ToImageIcon(String base64String, int width, int height) {
+    if (base64String == null || base64String.isEmpty()) {
+        System.err.println("Base64 string is null or empty");
+        return null;
+    }
+
+    try {
+        byte[] imageBytes = Base64.getDecoder().decode(base64String);
+        BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imageBytes));
+        
+        if (bufferedImage == null) {
+            System.err.println("BufferedImage is null after reading the image bytes");
             return null;
         }
+
+        Image scaledImage = bufferedImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        return new ImageIcon(scaledImage);
+    } catch (IllegalArgumentException e) {
+        System.err.println("Base64 decoding failed: " + e.getMessage());
+    } catch (IOException e) {
+        System.err.println("Image reading failed: " + e.getMessage());
     }
+    return null;
+}
 
     class ImageIconCellRenderer extends DefaultTableCellRenderer {
         @Override
@@ -362,8 +375,6 @@ public void pmtimeIn(ModelAttendance data) {
             }
             return; // Exit the method after adding the record
         }
-
-       
 
         if (existingEmployee(data)) {
             String sql = "UPDATE attendance_data SET PmTimeIn = ?, DateUpdated = CURDATE() WHERE EmployeesID = ? AND AmTimeIn  IS NOT NULL AND PmTimeIn IS NULL ";
@@ -533,23 +544,14 @@ public boolean existingEmployee(ModelAttendance data) {
                 BufferedImage.TYPE_INT_RGB
         );
         Graphics2D g2d = bufferedImage.createGraphics();
-        g2d.setColor(Color.WHITE);
+      
         g2d.fillRect(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight());
         g2d.drawImage(imageIcon.getImage(), 0, 0, null);
         g2d.dispose();
         return bufferedImage;
     }
 
-    private BufferedImage createBufferedImageWithWhiteBackground(BufferedImage bufferedImage) {
-        BufferedImage imageWithWhiteBackground = new BufferedImage(
-                bufferedImage.getWidth(), bufferedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2d = imageWithWhiteBackground.createGraphics();
-        g2d.setColor(Color.WHITE);
-        g2d.fillRect(0, 0, imageWithWhiteBackground.getWidth(), imageWithWhiteBackground.getHeight());
-        g2d.drawImage(bufferedImage, 0, 0, null);
-        g2d.dispose();
-        return imageWithWhiteBackground;
-    }
+  
 
     private String encodeImageToBase64(BufferedImage bufferedImage) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

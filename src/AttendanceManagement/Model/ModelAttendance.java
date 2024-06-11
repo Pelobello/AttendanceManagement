@@ -16,6 +16,25 @@ import javax.swing.Icon;
 public class ModelAttendance {
 
     /**
+     * @return the pastEmpID
+     */
+    public int getPastEmpID() {
+        return pastEmpID;
+    }
+
+    /**
+     * @param pastEmpID the pastEmpID to set
+     */
+    public void setPastEmpID(int pastEmpID) {
+        this.pastEmpID = pastEmpID;
+    }
+
+    /**
+     * @return the updatedEmpID
+     */
+ 
+
+    /**
      * @return the dateCreated
      */
     public Date getDateCreated() {
@@ -146,7 +165,7 @@ public class ModelAttendance {
      */
   
   
-    
+    private int pastEmpID;
     private Icon employeesImage;
     private String department;
     private int employeesID;

@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -167,6 +169,14 @@ private void year_monthDATA(){
     // Set the selected item to the current month
     Month.setSelectedItem(months[current_month]);  
 }
+
+private void setTxtFieldDefault(){
+      FullName.setText("Juan Dela Cruz");
+      employeesID.setText("123456");
+      DepartMent.setText("SHS");
+      Icon defaultImage = new ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/profile.png"));
+      EmployeesImage.setImage(defaultImage);
+}
 private void SearchEmployees(){
      int searchID = Integer.parseInt(SearchField.getText());
         
@@ -179,6 +189,8 @@ private void SearchEmployees(){
              DepartMent.setText(employees.getDepartment());
             repaint();
             revalidate();            
+        }else{
+          setTxtFieldDefault();
         }
 }
 private void srchFieldScn(){
