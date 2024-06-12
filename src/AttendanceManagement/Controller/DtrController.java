@@ -21,21 +21,21 @@ public class DtrController {
     public DtrController() {
     }
   public void populateDtr(JTable table, ModelDtr data) {
-        String sql = "SELECT \n" +
+        String sql = "SELECT\n" +
 "    ROW_NUMBER() OVER () AS Day,\n" +
-"    CASE \n" +
+"    CASE\n" +
 "        WHEN ad.AmTimeIn IS NULL THEN ''\n" +
 "        ELSE DATE_FORMAT(ad.AmTimeIn, '%l:%i %p')\n" +
 "    END AS AmTimeIn,\n" +
-"    CASE \n" +
+"    CASE\n" +
 "        WHEN ad.AmTimeOut IS NULL THEN ''\n" +
 "        ELSE DATE_FORMAT(ad.AmTimeOut, '%l:%i %p')\n" +
 "    END AS AmTimeOut,\n" +
-"    CASE \n" +
+"    CASE\n" +
 "        WHEN ad.PmTimeIn IS NULL THEN ''\n" +
 "        ELSE DATE_FORMAT(ad.PmTimeIn, '%l:%i %p')\n" +
 "    END AS PmTimeIn,\n" +
-"    CASE \n" +
+"    CASE\n" +
 "        WHEN ad.PmTimeOut IS NULL THEN ''\n" +
 "        ELSE DATE_FORMAT(ad.PmTimeOut, '%l:%i %p')\n" +
 "    END AS PmTimeOut,\n" +
@@ -77,26 +77,39 @@ public class DtrController {
 "    ) AS AM_PM_UnderTime,\n" +
 "    IFNULL(\n" +
 "        GREATEST(\n" +
-"            LEAST(\n" +
-"                TIMEDIFF(TIME(ad.PmTimeOut), '16:30:00'),\n" +
-"                TIMEDIFF(TIME(ad.PmTimeOut), '17:00:00')\n" +
-"            ),\n" +
+"            CASE ad.DepartMent\n" +
+"                WHEN 'SHS' THEN\n" +
+"                    CASE\n" +
+"                        WHEN TIME(ad.PmTimeOut) > '16:30:00' THEN TIMEDIFF(TIME(ad.PmTimeOut), '16:30:00')\n" +
+"                        ELSE '00:00:00'\n" +
+"                    END\n" +
+"                WHEN 'JHS' THEN\n" +
+"                    CASE\n" +
+"                        WHEN TIME(ad.PmTimeOut) > '17:00:00' THEN TIMEDIFF(TIME(ad.PmTimeOut), '17:00:00')\n" +
+"                        ELSE '00:00:00'\n" +
+"                    END\n" +
+"                WHEN 'NTP' THEN\n" +
+"                    CASE\n" +
+"                        WHEN TIME(ad.PmTimeOut) > '17:00:00' THEN TIMEDIFF(TIME(ad.PmTimeOut), '17:00:00')\n" +
+"                        ELSE '00:00:00'\n" +
+"                    END\n" +
+"                ELSE '00:00:00'\n" +
+"            END,\n" +
 "            '00:00:00'\n" +
 "        ),\n" +
 "        '00:00:00'\n" +
 "    ) AS OverTime\n" +
-"FROM \n" +
-"   attendance_data ad\n" +
-"WHERE \n" +
+"FROM\n" +
+"    attendance_data ad\n" +
+"WHERE\n" +
 "    ad.EmployeesID = ?\n" +
 "    AND MONTHNAME(ad.DateCreated) = ?\n" +
 "    AND YEAR(ad.DateCreated) = ?\n" +
-"    AND ad.DateDeleted IS NULL  \n" +
-                
+"    AND ad.DateDeleted IS NULL\n" +
 "\n" +
 "UNION ALL\n" +
 "\n" +
-"SELECT \n" +
+"SELECT\n" +
 "    '' AS Day,\n" +
 "    '' AS AmTimeIn,\n" +
 "    '' AS AmTimeOut,\n" +
@@ -136,22 +149,36 @@ public class DtrController {
 "            )\n" +
 "        )\n" +
 "    ) AS AM_PM_UnderTime,\n" +
-"    SEC_TO_TIME(SUM(TIME_TO_SEC(\n" +
+"    SEC_TO_TIME(SUM(\n" +
 "        GREATEST(\n" +
-"            LEAST(\n" +
-"                TIMEDIFF(TIME(ad.PmTimeOut), '16:30:00'),\n" +
-"                TIMEDIFF(TIME(ad.PmTimeOut), '17:00:00')\n" +
-"            ),\n" +
-"            '00:00:00'\n" +
+"            CASE ad.DepartMent\n" +
+"                WHEN 'SHS' THEN\n" +
+"                    CASE\n" +
+"                        WHEN TIME(ad.PmTimeOut) > '16:30:00' THEN TIME_TO_SEC(TIMEDIFF(TIME(ad.PmTimeOut), '16:30:00'))\n" +
+"                        ELSE 0\n" +
+"                    END\n" +
+"                WHEN 'JHS' THEN\n" +
+"                    CASE\n" +
+"                        WHEN TIME(ad.PmTimeOut) > '17:00:00' THEN TIME_TO_SEC(TIMEDIFF(TIME(ad.PmTimeOut), '17:00:00'))\n" +
+"                        ELSE 0\n" +
+"                    END\n" +
+"                WHEN 'NTP' THEN\n" +
+"                    CASE\n" +
+"                        WHEN TIME(ad.PmTimeOut) > '17:00:00' THEN TIME_TO_SEC(TIMEDIFF(TIME(ad.PmTimeOut), '17:00:00'))\n" +
+"                        ELSE 0\n" +
+"                    END\n" +
+"                ELSE 0\n" +
+"            END,\n" +
+"            0\n" +
 "        )\n" +
-"    ))) AS OverTime\n" +
-"FROM \n" +
+"    )) AS OverTime\n" +
+"FROM\n" +
 "    attendance_management_db.attendance_data ad\n" +
-"WHERE \n" +
+"WHERE\n" +
 "    ad.EmployeesID = ?\n" +
 "    AND MONTHNAME(ad.DateCreated) = ?\n" +
 "    AND YEAR(ad.DateCreated) = ?\n" +
-"    AND ad.DateDeleted IS NULL";
+"    AND ad.DateDeleted IS NULL;";
 
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);

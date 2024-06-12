@@ -56,6 +56,7 @@ public class AttendanceForm extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        employeesTable.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         employeesTable.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         employeesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

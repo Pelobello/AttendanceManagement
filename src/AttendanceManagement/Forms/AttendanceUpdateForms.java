@@ -6,6 +6,7 @@ package AttendanceManagement.Forms;
 
 import AttendanceManagement.Controller.AttendanceController;
 import AttendanceManagement.Model.ModelAttendance;
+import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 
 import java.text.SimpleDateFormat;
@@ -26,6 +27,10 @@ public class AttendanceUpdateForms extends javax.swing.JPanel {
             amDepartureTP.set24hourMode(true);
             pmArrivalTP.set24hourMode(true);
             pmDepartureTP.set24hourMode(true);
+            amArrival.putClientProperty(FlatClientProperties.TEXT_FIELD_TRAILING_ICON, new FlatSVGIcon("AttendanceManagement/Images_Icons/clock.svg"));
+             amDeparture.putClientProperty(FlatClientProperties.TEXT_FIELD_TRAILING_ICON, new FlatSVGIcon("AttendanceManagement/Images_Icons/clock.svg"));
+              pmArrival.putClientProperty(FlatClientProperties.TEXT_FIELD_TRAILING_ICON, new FlatSVGIcon("AttendanceManagement/Images_Icons/clock.svg"));
+               pmDeparture.putClientProperty(FlatClientProperties.TEXT_FIELD_TRAILING_ICON, new FlatSVGIcon("AttendanceManagement/Images_Icons/clock.svg"));
 
     }
     

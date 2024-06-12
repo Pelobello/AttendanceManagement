@@ -144,10 +144,10 @@ public class Main extends javax.swing.JFrame {
         );
         panelMovingLayout.setVerticalGroup(
             panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMovingLayout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+            .addGroup(panelMovingLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addComponent(add)
-                .addGap(14, 14, 14))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         changePanel.setBackground(new java.awt.Color(255, 255, 255));
