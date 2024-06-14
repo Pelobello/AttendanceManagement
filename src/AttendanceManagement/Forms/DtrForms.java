@@ -196,6 +196,7 @@ private void SearchEmployees(){
 private void srchFieldScn(){
        if (SearchField.getText().trim().isEmpty()) {
         JOptionPane.showMessageDialog(this, "Please input EmployeesID");
+        setTxtFieldDefault();
     } else {
         try {
             SearchEmployees();
@@ -219,6 +220,7 @@ private void srcDtr(){
          dtrTable.setDefaultRenderer(Object.class,getAlignmentCellRenderer(dtrTable.getDefaultRenderer(Object.class), false));
         
     } catch (Exception e) {
+        e.printStackTrace();
     }   
 }
 private void testReport(){

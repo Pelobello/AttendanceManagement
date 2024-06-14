@@ -6,6 +6,8 @@ package AttendanceManagement.LoginForms;
 
 import AttendanceManagement.Main.Attendance;
 import AttendanceManagement.Main.Main;
+import AttendanceManagement.UserDaoController.DaoController;
+import AttendanceManagement.UserDaoController.ModelAdminData;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -20,14 +22,13 @@ import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-/**
- *
- * @author USER
- */
+
 public class LoginForm extends javax.swing.JPanel {
     private Attendance attendance;
+    private DaoController daoController = new DaoController();
     public LoginForm(Attendance attendance) {
         initComponents();
         this.attendance = attendance;
@@ -48,6 +49,45 @@ public class LoginForm extends javax.swing.JPanel {
         this.image = image;
         repaint();
     }
+private void register(){
+    try {
+       String adminUser =  userName.getText();
+       char[] adminPassword = passWord.getPassword();
+       
+        
+        daoController.registerAdmin(new ModelAdminData(adminPassword,adminUser, adminUser, adminPassword));    
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+private void login(){
+    try {
+        if (userName.getText().equals("")||passWord.getPassword().length == 0) {
+            JOptionPane.showMessageDialog(this, "Please Enter your Username or Password");
+        }else{
+        String adminUser =  userName.getText();
+       char[] adminPassword = passWord.getPassword();
+       ModelAdminData adminData = new ModelAdminData(adminPassword,adminUser, adminUser, adminPassword);
+       
+       ModelAdminData result =  daoController.loginAdmin(adminData);
+      
+        if (result != null) {
+            JOptionPane.showMessageDialog(this, "Access Granted");
+             SwingUtilities.invokeLater(() -> {
+        Main main = new Main();
+      main.setVisible(true); // Show the new window
+      attendance.dispose();
+    
+    });
+        }else{
+            JOptionPane.showMessageDialog(this, "Incorrect Username or Password");
+        }
+        }
+       
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 
     private Icon image;
     @SuppressWarnings("unchecked")
@@ -88,27 +128,28 @@ public class LoginForm extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(passWord, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(passWord, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(76, 76, 76)))
-                .addContainerGap())
+                        .addGap(85, 85, 85))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(71, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(72, 72, 72)
                 .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(passWord, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
+                .addContainerGap(157, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
@@ -125,7 +166,7 @@ public class LoginForm extends javax.swing.JPanel {
             .addGroup(panelLayout.createSequentialGroup()
                 .addGap(223, 223, 223)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -141,12 +182,7 @@ public class LoginForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       SwingUtilities.invokeLater(() -> {
-        Main main = new Main();
-      main.setVisible(true); // Show the new window
-      attendance.dispose();
-    
-    });
+      login();
     }//GEN-LAST:event_jButton1ActionPerformed
  @Override
     protected void paintComponent(Graphics grphcs) {

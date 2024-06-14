@@ -7,6 +7,20 @@ package AttendanceManagement.UserDaoController;
 
 public class ModelAdminData {
 
+    /**
+     * @return the newusername
+     */
+    public String getNewusername() {
+        return newusername;
+    }
+
+    /**
+     * @param newusername the newusername to set
+     */
+    public void setNewusername(String newusername) {
+        this.newusername = newusername;
+    }
+
   
     public char[] getNewpassword() {
         return newpassword;
@@ -37,13 +51,17 @@ public class ModelAdminData {
     public ModelAdminData() {
     }
 
-    public ModelAdminData(char[] newpassword, String username, char[] password) {
+    public ModelAdminData(char[] newpassword, String newusername, String username, char[] password) {
         this.newpassword = newpassword;
+        this.newusername = newusername;
         this.username = username;
         this.password = password;
     }
+
+ 
     
     private char[]newpassword;
+    private String newusername;
     private String username;
     private char[]password;
     

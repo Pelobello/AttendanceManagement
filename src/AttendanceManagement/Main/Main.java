@@ -5,6 +5,7 @@ package AttendanceManagement.Main;
 import AttendanceManagement.Controller.AttendanceController;
 import AttendanceManagement.Controller.EmployeesController;
 import AttendanceManagement.EventItem.EventItem;
+import AttendanceManagement.Forms.AdminProfile;
 import AttendanceManagement.Forms.AttendanceForm;
 import AttendanceManagement.Forms.DtrForms;
 import AttendanceManagement.Forms.EmployeesDataForms;
@@ -104,6 +105,9 @@ public class Main extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         panelMoving = new javax.swing.JPanel();
         add = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        imageAvatar1 = new AttendanceManagement.Components.ImageAvatar();
+        jLabel1 = new javax.swing.JLabel();
         changePanel = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
@@ -133,12 +137,52 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(0, 51, 84));
+
+        imageAvatar1.setBorderColor(new java.awt.Color(255, 255, 255));
+        imageAvatar1.setBorderSize(1);
+        imageAvatar1.setImage(new javax.swing.ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/icons8_User_Shield_50px.png"))); // NOI18N
+        imageAvatar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imageAvatar1MouseClicked(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("ADMIN");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(imageAvatar1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout panelMovingLayout = new javax.swing.GroupLayout(panelMoving);
         panelMoving.setLayout(panelMovingLayout);
         panelMovingLayout.setHorizontalGroup(
             panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMovingLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(15, 15, 15)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
         );
@@ -148,6 +192,9 @@ public class Main extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(add)
                 .addContainerGap(17, Short.MAX_VALUE))
+            .addGroup(panelMovingLayout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         changePanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -376,6 +423,11 @@ public class Main extends javax.swing.JFrame {
        attendance.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void imageAvatar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageAvatar1MouseClicked
+    
+        GlassPanePopup.showPopup(new AdminProfile());
+    }//GEN-LAST:event_imageAvatar1MouseClicked
   private int x;
   private int y;
        public void initMoving(JFrame frame){
@@ -413,6 +465,7 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
     private javax.swing.JPanel changePanel;
+    private AttendanceManagement.Components.ImageAvatar imageAvatar1;
     private AttendanceManagement.Components.ImageBox imageBox1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
@@ -421,7 +474,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel panelMoving;

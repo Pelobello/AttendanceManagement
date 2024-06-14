@@ -45,6 +45,7 @@ public class AttendanceController {
     private ResultSet rs;
     public AttendanceController() {
     }
+    //populate data
 public List<ModelAttendance>getAll() throws SQLException{
    
     try {

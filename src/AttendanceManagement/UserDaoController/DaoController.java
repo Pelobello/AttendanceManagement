@@ -26,7 +26,7 @@ public class DaoController {
        data.setPassword(encryptedPassword.toCharArray());
        return Dao.loginAdmin(data);
    }
-   public boolean newAdminPassword(ModelAdminData data){
+   public boolean changePassword(ModelAdminData data){
        String encryptedNewPassword = Dao.encryptPass(new String(data.getNewpassword()));
        data.setNewpassword(encryptedNewPassword.toCharArray());
        String encryptedPassword = Dao.encryptPass(new String(data.getPassword()));
