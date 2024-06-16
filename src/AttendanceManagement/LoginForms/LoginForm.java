@@ -112,6 +112,11 @@ private void login(){
         passWord.setBackground(new java.awt.Color(0, 51, 84));
         passWord.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         passWord.setForeground(new java.awt.Color(255, 255, 255));
+        passWord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passWordActionPerformed(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(0, 51, 84));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -184,6 +189,10 @@ private void login(){
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       login();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void passWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passWordActionPerformed
+        login();
+    }//GEN-LAST:event_passWordActionPerformed
  @Override
     protected void paintComponent(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs.create();

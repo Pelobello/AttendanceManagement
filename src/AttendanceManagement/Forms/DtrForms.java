@@ -29,11 +29,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
+import jnafilechooser.api.JnaFileChooser;
 
 /**
  *
@@ -244,9 +246,11 @@ private void testReport(){
         FullName = new javax.swing.JLabel();
         employeesID = new javax.swing.JLabel();
         DepartMent = new javax.swing.JLabel();
-        pdfBtn = new javax.swing.JButton();
+        view = new javax.swing.JButton();
         SearchField = new javax.swing.JTextField();
         Principal = new javax.swing.JTextField();
+        pdf = new javax.swing.JButton();
+        excel = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1145, 659));
 
@@ -370,11 +374,11 @@ private void testReport(){
                         .addComponent(DepartMent, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
-        pdfBtn.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        pdfBtn.setText("Print Records");
-        pdfBtn.addActionListener(new java.awt.event.ActionListener() {
+        view.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        view.setText("View");
+        view.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pdfBtnActionPerformed(evt);
+                viewActionPerformed(evt);
             }
         });
 
@@ -388,6 +392,22 @@ private void testReport(){
 
         Principal.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         Principal.setForeground(new java.awt.Color(102, 102, 102));
+
+        pdf.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        pdf.setText("Pdf");
+        pdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pdfActionPerformed(evt);
+            }
+        });
+
+        excel.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        excel.setText("Excel");
+        excel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelTableLayout = new javax.swing.GroupLayout(panelTable);
         panelTable.setLayout(panelTableLayout);
@@ -411,7 +431,11 @@ private void testReport(){
                     .addComponent(jScrollPane1)
                     .addGroup(panelTableLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(pdfBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(excel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pdf, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(16, 16, 16))
         );
         panelTableLayout.setVerticalGroup(
@@ -431,7 +455,10 @@ private void testReport(){
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pdfBtn)
+                .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(view, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(excel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pdf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -447,42 +474,31 @@ private void testReport(){
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pdfBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfBtnActionPerformed
+    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
     if (Principal.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Fill out Principal Field");
-        }else{
-           try {
-    List<FieldReportAttendance> list = new ArrayList<>();
-    DefaultTableModel data = (DefaultTableModel) dtrTable.getModel();
-    
-    // Iterate through each row of the table
-    for (int i = 0; i < data.getRowCount(); i++) {
-        // Retrieve the values of each column in the current row
-        String col1 = (String) data.getValueAt(i, 0);
-        String col2 = (String) data.getValueAt(i, 1);
-        String col3 = (String) data.getValueAt(i, 2);
-        String col4 = (String) data.getValueAt(i, 3);
-        String col5 = (String) data.getValueAt(i, 4);
-        String col6 = (String) data.getValueAt(i, 5);
-        String col7 = (String) data.getValueAt(i, 6);
-        String col8 = (String) data.getValueAt(i, 7);
-        
-        // Create a new FieldReportAttendance object with the values and add it to the list
-        list.add(new FieldReportAttendance(col1, col2, col3, col4, col5, col6, col7, col8));
+        JOptionPane.showMessageDialog(this, "Please Fill out Principal Field");
+    } else {
+        try {
+            List<FieldReportAttendance> list = populateFieldReportAttendanceList();
+            if (list == null) {
+                return;
+            }
+            
+            int cmbtoStr = Integer.valueOf((String) Year.getSelectedItem());
+            ParamenterAttendance dataprint = new ParamenterAttendance(
+                FullName.getText(),
+                (String) Month.getSelectedItem(),
+                cmbtoStr,
+                list,
+                Principal.getText()
+            );
+
+            ReportManager.getInstance().printAttendanceReport(dataprint);
+        } catch (Exception e) {
+            handleReportGenerationError(e);
+        }
     }
-    
-    int cmbtoStr = Integer.valueOf((String) Year.getSelectedItem());
-    ParamenterAttendance dataprint = new ParamenterAttendance(FullName.getText(), (String) Month.getSelectedItem(), cmbtoStr, list,Principal.getText()
-    );
-    
-    ReportManager.getInstance().printAttendanceReport(dataprint);
-   
-    
-} catch (Exception e) {
-    e.printStackTrace();
-}
-    }
-    }//GEN-LAST:event_pdfBtnActionPerformed
+    }//GEN-LAST:event_viewActionPerformed
 
     private void YearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YearActionPerformed
     
@@ -496,16 +512,131 @@ private void testReport(){
         // TODO add your handling code here:
     }//GEN-LAST:event_MonthActionPerformed
 
- private File showFileChooser() {
+    private void pdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfActionPerformed
+         if (Principal.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please Fill out Principal Field");
+    } else {
+        try {
+            List<FieldReportAttendance> list = populateFieldReportAttendanceList();
+            if (list == null) {
+                return;
+            }
+            
+            int cmbtoStr = Integer.valueOf((String) Year.getSelectedItem());
+            ParamenterAttendance dataprint = new ParamenterAttendance(
+                FullName.getText(),
+                (String) Month.getSelectedItem(),
+                cmbtoStr,
+                list,
+                Principal.getText()
+            );
+
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Specify a file to save");
+            fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("PDF files", "pdf"));
+
+            int userSelection = fileChooser.showSaveDialog(this);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                String outputPath = ensurePdfExtension(fileToSave.getAbsolutePath());
+
+                ReportManager.getInstance().exportDtrReportToPdf(dataprint, outputPath);
+                JOptionPane.showMessageDialog(this, "Report generated successfully!");
+            }
+        } catch (Exception e) {
+            handleReportGenerationError(e);
+        }
+    }
+    }//GEN-LAST:event_pdfActionPerformed
+
+    private void excelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelActionPerformed
+        if (Principal.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please Fill out Principal Field");
+    } else {
+        File file = showFileChooser();
+        if (file != null) {
+            try {
+                List<FieldReportAttendance> list = populateFieldReportAttendanceList();
+                if (list == null) {
+                    return;
+                }
+
+                int cmbtoStr = Integer.parseInt((String) Year.getSelectedItem());
+                ParamenterAttendance dataprint = new ParamenterAttendance(
+                    FullName.getText(),
+                    (String) Month.getSelectedItem(),
+                    cmbtoStr,
+                    list,
+                    Principal.getText()
+                );
+
+                String excelPath = ensureExcelExtension(file.getAbsolutePath());
+
+                ReportManager.getInstance().exportReportToExcel(dataprint, excelPath);       
+                 JOptionPane.showMessageDialog(this, "Report generated successfully!");
+            } catch (Exception e) {
+                handleReportGenerationError(e);
+            }
+        }
+    }
+    }//GEN-LAST:event_excelActionPerformed
+
+private List<FieldReportAttendance> populateFieldReportAttendanceList() {
+    List<FieldReportAttendance> list = new ArrayList<>();
+    DefaultTableModel data = (DefaultTableModel) dtrTable.getModel();
+
+    // Iterate through each row of the table
+    for (int i = 0; i < data.getRowCount(); i++) {
+        // Retrieve the values of each column in the current row
+        String col1 = (String) data.getValueAt(i, 0);
+        String col2 = (String) data.getValueAt(i, 1);
+        String col3 = (String) data.getValueAt(i, 2);
+        String col4 = (String) data.getValueAt(i, 3);
+        String col5 = (String) data.getValueAt(i, 4);
+        String col6 = (String) data.getValueAt(i, 5);
+        String col7 = (String) data.getValueAt(i, 6);
+        String col8 = (String) data.getValueAt(i, 7);
+
+        // Create a new FieldReportAttendance object with the values and add it to the list
+        list.add(new FieldReportAttendance(col1, col2, col3, col4, col5, col6, col7, col8));
+    }
+
+    return list;
+}
+
+private void handleReportGenerationError(Exception e) {
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(this, "An error occurred while generating the report.");
+}
+
+private String ensurePdfExtension(String path) {
+    if (!path.toLowerCase().endsWith(".pdf")) {
+        return path + ".pdf";
+    }
+    return path;
+}
+
+private String ensureExcelExtension(String path) {
+    if (!path.toLowerCase().endsWith(".xls")) {
+        return path + ".xls";
+    }
+    return path;
+}
+
+private File showFileChooser() {
     JFileChooser fileChooser = new JFileChooser();
-    fileChooser.setDialogTitle("Save Report as exceel");
-    fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel files", "xls"));
+    fileChooser.setDialogTitle("Save Report as Excel");
+    fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel", "xls"));
+
     int result = fileChooser.showSaveDialog(this);
     if (result == JFileChooser.APPROVE_OPTION) {
-        return fileChooser.getSelectedFile();
+        return fileChooser.getSelectedFile();  // Return the selected file
+    } else {
+        return null;  // Return null if cancel or close the dialog
     }
-    return null;
 }
+ 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DepartMent;
     private AttendanceManagement.Components.ImageBox EmployeesImage;
@@ -516,9 +647,11 @@ private void testReport(){
     private javax.swing.JComboBox<String> Year;
     private javax.swing.JTable dtrTable;
     private javax.swing.JLabel employeesID;
+    private javax.swing.JButton excel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelTable;
-    private javax.swing.JButton pdfBtn;
+    private javax.swing.JButton pdf;
+    private javax.swing.JButton view;
     // End of variables declaration//GEN-END:variables
 }

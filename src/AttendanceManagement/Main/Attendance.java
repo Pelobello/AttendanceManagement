@@ -28,6 +28,9 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import org.junit.After;
+import org.junit.Test;
+
 
 
 public class Attendance extends javax.swing.JFrame {
@@ -37,7 +40,7 @@ public class Attendance extends javax.swing.JFrame {
   private AttendanceController attendanceController = new AttendanceController();
     public Attendance() {
         initComponents();
-
+        
         setupKeyBindings();
         mainPanel.setLayout(new BorderLayout());
           time_in_out_Form.setImage(new ImageIcon(getClass().getResource("/AttendanceManagement/Images_Icons/schoolbackground.jpg")));

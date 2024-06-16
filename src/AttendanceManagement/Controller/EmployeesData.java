@@ -24,7 +24,7 @@ private ResultSet rs;
 public List<ModelEmployeesData>getallData() throws SQLException{
   
     try {
-        String sql = "SELECT IDnumber, FirstName, CASE WHEN TRIM(MiddleName) = '' THEN 'N-M' ELSE MiddleName END AS MiddleName, LastName, Position, Department, DateAssumed, PlantillaNumber FROM employees_data WHERE DateDeleted IS NULL";
+        String sql = "SELECT IDnumber, FirstName, CASE WHEN TRIM(MiddleName) = '' THEN 'N-M' ELSE MiddleName END AS MiddleName, LastName, Position, Department, DateAssumed, PlantillaNumber FROM employees_data WHERE DateDeleted IS NULL ORDER BY LastName ASC";
         ps = prepareStatement(sql);
         rs = ps.executeQuery();
         
@@ -57,15 +57,15 @@ public List<ModelEmployeesData>getallData() throws SQLException{
 public List<ModelEmployeesData>searchlData(String Search) throws SQLException{
   
     try {
-        String sql = "SELECT IDnumber, FirstName, CASE WHEN TRIM(MiddleName) = '' THEN 'N-M' ELSE MiddleName END AS MiddleName, LastName, Position, Department, DateAssumed, PlantillaNumber FROM employees_data WHERE DateDeleted IS NULL";
+        String sql = "SELECT IDnumber, FirstName, CASE WHEN TRIM(MiddleName) = '' THEN 'N-M' ELSE MiddleName END AS MiddleName, LastName, Position, Department, DateAssumed, PlantillaNumber FROM employees_data WHERE DateDeleted IS NULL ";
        
       
          if (Search.equalsIgnoreCase("JHS")) {
-            sql += " AND Department = 'JHS'";
+            sql += " AND Department = 'JHS' ORDER BY LastName ASC";
         } else if (Search.equalsIgnoreCase("SHS")) {
-            sql += " AND Department = 'SHS'";
+            sql += " AND Department = 'SHS' ORDER BY LastName ASC";
         } else if (Search.equalsIgnoreCase("NTP")) {
-            sql += " AND Department = 'NTP'";
+            sql += " AND Department = 'NTP' ORDER BY LastName ASC";
         }
         ps = prepareStatement(sql);
         rs = ps.executeQuery();

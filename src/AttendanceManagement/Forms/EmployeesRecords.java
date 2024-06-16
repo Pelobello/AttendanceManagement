@@ -11,13 +11,16 @@ import AttendanceManagement.print.ReportManager;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -92,8 +95,10 @@ private void init() {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         employeesTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        view = new javax.swing.JButton();
         searchDepartment = new javax.swing.JComboBox<>();
+        pdf = new javax.swing.JButton();
+        excel = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -106,7 +111,7 @@ private void init() {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Employee ID", "Name", "Middle Name", "Last Name", "Position", "Department", "Plantilla #", "DateAssumed"
+                "Employee ID", "Last Name", "Name", "Middle Name", "Position", "Department", "Plantilla #", "DateAssumed"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -119,11 +124,11 @@ private void init() {
         });
         jScrollPane1.setViewportView(employeesTable);
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("Print Records");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        view.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        view.setText("View");
+        view.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                viewActionPerformed(evt);
             }
         });
 
@@ -132,6 +137,20 @@ private void init() {
         searchDepartment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchDepartmentActionPerformed(evt);
+            }
+        });
+
+        pdf.setText("PDF");
+        pdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pdfActionPerformed(evt);
+            }
+        });
+
+        excel.setText("Excel");
+        excel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excelActionPerformed(evt);
             }
         });
 
@@ -150,7 +169,11 @@ private void init() {
                                 .addGap(0, 928, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(excel, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(pdf, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
@@ -161,7 +184,10 @@ private void init() {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(excel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pdf, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -181,47 +207,92 @@ private void init() {
       searchData();
     }//GEN-LAST:event_searchDepartmentActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-          try {
-        List<FieldEmployee> list = new ArrayList<>();
-        DefaultTableModel data = (DefaultTableModel) employeesTable.getModel();
-        for (int i = 0; i < data.getRowCount(); i++) {
-            Object col1 = data.getValueAt(i, 0);
-            Object col2 = data.getValueAt(i, 1);
-            Object col3 = data.getValueAt(i, 2);
-            Object col4 = data.getValueAt(i, 3);
-            Object col5 = data.getValueAt(i, 4);
-            Object col6 = data.getValueAt(i, 5);
-            Object col7 = data.getValueAt(i, 6);
-            Object col8 = data.getValueAt(i, 7);
-            
-            // Check if the cell value is an Integer, and convert it to a String if necessary
-            String strCol1 = (col1 instanceof Integer) ? String.valueOf(col1) : (String) col1;
-            String strCol2 = (col2 instanceof Integer) ? String.valueOf(col2) : (String) col2;
-            String strCol3 = (col3 instanceof Integer) ? String.valueOf(col3) : (String) col3;
-            String strCol4 = (col4 instanceof Integer) ? String.valueOf(col4) : (String) col4;
-            String strCol5 = (col5 instanceof Integer) ? String.valueOf(col5) : (String) col5;
-            String strCol6 = (col6 instanceof Integer) ? String.valueOf(col6) : (String) col6;
-            String strCol7 = (col7 instanceof Integer) ? String.valueOf(col7) : (String) col7;
-            String strCol8 = (col8 instanceof Integer) ? String.valueOf(col8) : (String) col8;
-            
-            list.add(new FieldEmployee(strCol1, strCol2, strCol3, strCol4, strCol5, strCol6, strCol7, strCol8));
-        }
-            
-              URL imageURL = getClass().getResource("/AttendanceManagement/Images_Icons/schoollogo.png");
-            // Create an InputStream to read the image data
-               InputStream inputStream = imageURL.openStream();
-        ParameterEmployee printEmployee = new ParameterEmployee("LUPON VOCATIONAL HIGH SCHOOL", inputStream, list);
+    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
+        try {
+        List<FieldEmployee> list = extractEmployeesFromTable();
+        ParameterEmployee printEmployee = createParameterEmployee(list);
         ReportManager.getInstance().printTeachersReport(printEmployee);
+          
     } catch (Exception e) {
         e.printStackTrace();
     }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_viewActionPerformed
 
+    private void excelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelActionPerformed
+          try {
+        File file = showFileChooser();
+        if (file != null) {
+            List<FieldEmployee> list = extractEmployeesFromTable();
+            ParameterEmployee printEmployee = createParameterEmployee(list);
+            String excelPath = getFormattedFilePath(file, ".xls");
+            ReportManager.getInstance().exportReportTeachertoExcel(printEmployee, excelPath);
+             JOptionPane.showMessageDialog(this, "Report generated successfully!");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    }//GEN-LAST:event_excelActionPerformed
+
+    private void pdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfActionPerformed
+       try {
+        File file = showFileChooser();
+        if (file != null) {
+            List<FieldEmployee> list = extractEmployeesFromTable();
+            ParameterEmployee printEmployee = createParameterEmployee(list);
+            String pdfPath = getFormattedFilePath(file, ".pdf");
+            ReportManager.getInstance().exportReportTeachertoPdf(printEmployee, pdfPath);
+                JOptionPane.showMessageDialog(this, "Report generated successfully!");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    }//GEN-LAST:event_pdfActionPerformed
+private List<FieldEmployee> extractEmployeesFromTable() {
+    List<FieldEmployee> list = new ArrayList<>();
+    DefaultTableModel data = (DefaultTableModel) employeesTable.getModel();
+    for (int i = 0; i < data.getRowCount(); i++) {
+        list.add(getFieldEmployeeFromRow(data, i));
+    }
+    return list;
+}
+
+private FieldEmployee getFieldEmployeeFromRow(DefaultTableModel data, int row) {
+    Object col1 = data.getValueAt(row, 0);
+    Object col2 = data.getValueAt(row, 1);
+    Object col3 = data.getValueAt(row, 2);
+    Object col4 = data.getValueAt(row, 3);
+    Object col5 = data.getValueAt(row, 4);
+    Object col6 = data.getValueAt(row, 5);
+    Object col7 = data.getValueAt(row, 6);
+    Object col8 = data.getValueAt(row, 7);
+
+    return new FieldEmployee(getStringValue(col1), getStringValue(col2), getStringValue(col3),
+                             getStringValue(col4), getStringValue(col5), getStringValue(col6),
+                             getStringValue(col7), getStringValue(col8));
+}
+
+private String getStringValue(Object value) {
+    return (value instanceof Integer) ? String.valueOf(value) : (String) value;
+}
+
+private ParameterEmployee createParameterEmployee(List<FieldEmployee> list) throws IOException {
+    URL imageURL = getClass().getResource("/AttendanceManagement/Images_Icons/schoollogo.png");
+    InputStream inputStream = imageURL.openStream();
+    return new ParameterEmployee("LUPON VOCATIONAL HIGH SCHOOL", inputStream, list);
+}
+
+private String getFormattedFilePath(File file, String extension) {
+    String filePath = file.getAbsolutePath();
+    if (!filePath.toLowerCase().endsWith(extension)) {
+        filePath += extension;
+    }
+    return filePath;
+}
 private File showFileChooser() {
     JFileChooser fileChooser = new JFileChooser();
-    fileChooser.setDialogTitle("Save Report as exceel");
-    fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel files", "xls"));
+    fileChooser.setDialogTitle("Save Report");
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel/PDF files", "xls", "pdf");
+    fileChooser.setFileFilter(filter);
     int result = fileChooser.showSaveDialog(this);
     if (result == JFileChooser.APPROVE_OPTION) {
         return fileChooser.getSelectedFile();
@@ -230,10 +301,12 @@ private File showFileChooser() {
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable employeesTable;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton excel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton pdf;
     private javax.swing.JComboBox<String> searchDepartment;
+    private javax.swing.JButton view;
     // End of variables declaration//GEN-END:variables
 
     

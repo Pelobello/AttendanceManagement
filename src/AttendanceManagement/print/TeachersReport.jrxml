@@ -46,7 +46,7 @@
 					<rightPen lineWidth="0.6"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ID #]]></text>
 			</staticText>
@@ -60,9 +60,9 @@
 					<rightPen lineWidth="0.6"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[NAME]]></text>
+				<text><![CDATA[LAST NAME]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="142" y="0" width="71" height="20" uuid="ef391435-4fa0-4093-b5f5-bb76f74fd7a2"/>
@@ -74,9 +74,9 @@
 					<rightPen lineWidth="0.6"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[MIDDLE NAME]]></text>
+				<text><![CDATA[FIRST NAME]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="213" y="0" width="71" height="20" uuid="36aaeb35-79db-4886-89f2-99d8b2774a96"/>
@@ -88,9 +88,9 @@
 					<rightPen lineWidth="0.6"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[LAST NAME]]></text>
+				<text><![CDATA[MIDDLE NAME]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="284" y="0" width="71" height="20" uuid="5efe07bf-a604-4565-ab05-e133d0248d6e"/>
@@ -102,7 +102,7 @@
 					<rightPen lineWidth="0.6"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[POSITION]]></text>
 			</staticText>
@@ -116,7 +116,7 @@
 					<rightPen lineWidth="0.6"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DEPARTMENT]]></text>
 			</staticText>
@@ -130,7 +130,7 @@
 					<rightPen lineWidth="0.6"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PLANTILLA #]]></text>
 			</staticText>
@@ -144,7 +144,7 @@
 					<rightPen lineWidth="0.6"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DATE ASSUMED]]></text>
 			</staticText>
@@ -162,7 +162,7 @@
 					<rightPen lineWidth="0.6"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
+					<font size="9" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{idNumber}]]></textFieldExpression>
 			</textField>
@@ -176,9 +176,9 @@
 					<rightPen lineWidth="0.6"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
+					<font size="9" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="142" y="0" width="71" height="20" uuid="9577f3a3-aff6-4108-a1aa-264de9f0907a"/>
@@ -190,9 +190,9 @@
 					<rightPen lineWidth="0.6"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
+					<font size="9" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{middleName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="213" y="0" width="71" height="20" uuid="d5e56a7e-c07f-440c-934d-b8635f9c3534"/>
@@ -204,9 +204,9 @@
 					<rightPen lineWidth="0.6"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
+					<font size="9" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{middleName}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="284" y="0" width="71" height="20" uuid="d70710df-fbf5-4919-84fb-ff37ff08105c"/>
@@ -218,7 +218,7 @@
 					<rightPen lineWidth="0.6"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
+					<font size="9" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{position}]]></textFieldExpression>
 			</textField>
@@ -232,7 +232,7 @@
 					<rightPen lineWidth="0.6"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
+					<font size="9" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{department}]]></textFieldExpression>
 			</textField>
@@ -246,7 +246,7 @@
 					<rightPen lineWidth="0.6"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
+					<font size="9" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{plantillaNumber}]]></textFieldExpression>
 			</textField>
@@ -260,7 +260,7 @@
 					<rightPen lineWidth="0.6"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
+					<font size="9" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dateAssumed}]]></textFieldExpression>
 			</textField>

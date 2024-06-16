@@ -127,22 +127,24 @@ public class FieldEmployee {
     public FieldEmployee() {
     }
 
-    public FieldEmployee(String idNumber, String firstName, String middleName, String lastName, String position, String department, String plantillaNumber, String dateAssumed) {
+    public FieldEmployee(String idNumber, String lastName, String firstName, String middleName, String position, String department, String plantillaNumber, String dateAssumed) {
         this.idNumber = idNumber;
+        this.lastName = lastName;
         this.firstName = firstName;
         this.middleName = middleName;
-        this.lastName = lastName;
         this.position = position;
         this.department = department;
         this.plantillaNumber = plantillaNumber;
         this.dateAssumed = dateAssumed;
     }
 
+
+
  
     private String idNumber;
+private String lastName;
 private String firstName;
 private String middleName;
-private String lastName;
 private String position;
 private String department;
 private String plantillaNumber;

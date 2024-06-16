@@ -149,7 +149,7 @@ private Date dateAssumed;
 
 public Object[]tableRow(int row){
     DateFormat df = new SimpleDateFormat("MMMM dd,yyyy");
-    return new Object[]{idNumber,firstName,middleName,lastName,position,department,plantillaNumber,dateAssumed == null ?"":df.format(dateAssumed)};
+    return new Object[]{idNumber,lastName,firstName,middleName,position,department,plantillaNumber,dateAssumed == null ?"":df.format(dateAssumed)};
 }
 
 }
